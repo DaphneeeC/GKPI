@@ -121,7 +121,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button15_2",
-      "ParentIndex": 17,
+      "ParentIndex": 18,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -442,7 +442,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button15_3",
-      "ParentIndex": 14,
+      "ParentIndex": 15,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -768,7 +768,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button15_8",
-      "ParentIndex": 16,
+      "ParentIndex": 17,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1072,7 +1072,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button6",
-      "ParentIndex": 13,
+      "ParentIndex": 14,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1335,7 +1335,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Button8",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1591,7 +1591,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Email_Forgot_Email",
-      "ParentIndex": 15,
+      "ParentIndex": 16,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1914,7 +1914,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Email_Input",
-      "ParentIndex": 9,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2238,7 +2238,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Email_Recovery",
-      "ParentIndex": 11,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2474,7 +2474,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Forgot_Password",
-      "ParentIndex": 21,
+      "ParentIndex": 22,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2552,7 +2552,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Icon10",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2753,7 +2753,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ID_Forgot_Email",
-      "ParentIndex": 10,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3238,7 +3238,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Image9",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3484,7 +3484,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label12",
-      "ParentIndex": 18,
+      "ParentIndex": 19,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3751,7 +3751,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label38",
-      "ParentIndex": 19,
+      "ParentIndex": 20,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4006,7 +4006,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label44",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4291,7 +4291,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label8",
-      "ParentIndex": 8,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4593,7 +4593,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label8_1",
-      "ParentIndex": 6,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5017,7 +5017,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Password_Input",
-      "ParentIndex": 12,
+      "ParentIndex": 13,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5274,7 +5274,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Rectangle12",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5418,7 +5418,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Rectangle16",
-      "ParentIndex": 7,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5702,7 +5702,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "version",
-      "ParentIndex": 20,
+      "ParentIndex": 21,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
