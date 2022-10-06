@@ -1,0 +1,2589 @@
+CPP_Approver_Page As screen:
+    OnVisible: =Set(varRC,true); Set(mandatorycommentbox,false)
+
+    "'CPP-Form_Approver' As form":
+        AcceptsFocus: =false
+        DataSource: ='Copacker Master Form'
+        Height: =608
+        Item: |-
+            =Switch(
+                true,
+                !IsBlank(varCPP.FormNo),
+                LookUp('Copacker Master Form', FormNo = varCPP.FormNo),
+                And(!IsBlank(Param("CPPFormNo")), !IsBlank(Param("Roles")),  !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), LookUp('Copacker Master Form', FormNo= Param("CPPFormNo")))
+        SnapToColumns: =false
+        Width: =1366
+        Y: =96
+        ZIndex: =1
+
+        DataCard34_1 As typedDataCard.blankCard:
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =42
+            Visible: =false
+            Width: =1284
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey25_19 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 161, 233, 1)
+                FontWeight: =Semibold
+                Height: =34
+                PaddingLeft: =10
+                Size: =16
+                Text: ="Form Details"
+                Width: =1087
+                Wrap: =false
+                X: =67
+                ZIndex: =1
+
+            Circle2_49 As circle:
+                Fill: =RGBA(0, 161, 233, 1)
+                Height: =31
+                Width: =31
+                X: =36
+                Y: =5
+                ZIndex: =2
+
+            Icon23_25 As icon.CalendarBlank:
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =DisplayMode.View
+                Height: =23
+                Icon: =Icon.DocumentWithContent
+                Width: =23
+                X: =40
+                Y: =9
+                ZIndex: =3
+
+        Status_DataCard4 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Status"
+            Default: =ThisItem.Status
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Master Form'],DataSourceInfo.DisplayName,"Status")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =98
+            MaxLength: =DataSourceInfo([@'Copacker Master Form'], DataSourceInfo.MaxLength, "Status")
+            Required: =false
+            Update: =DataCardValue16.Text
+            Width: =436
+            X: =1
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey52 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 161, 233, 1)
+                FontWeight: =Semibold
+                Height: =34
+                Size: =18
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue16 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =0
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(230, 230, 230, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =427
+                X: =30
+                Y: =49
+                ZIndex: =2
+
+            ErrorMessage13 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue16.Y + DataCardValue16.Height
+                ZIndex: =3
+
+            StarVisible13 As label:
+                Align: =Align.Center
+                Height: =DataCardKey52.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey52.Y
+                ZIndex: =4
+
+        Month_DataCard9_2 As typedDataCard.comboBoxEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Month"
+            Default: =ThisItem.Month
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Form'],DataSourceInfo.DisplayName,"Month")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            Required: =true
+            Update: =
+            Width: =226
+            X: =5
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey4_2 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage4_2 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: ="This field is mandatory."
+                Visible: =(IsBlank(MonthCPP_2.Selected.Value) && Parent.DisplayMode=DisplayMode.Edit)
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =99
+                ZIndex: =3
+
+            StarVisible4_2 As label:
+                Align: =Align.Center
+                Height: =DataCardKey4_2.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey4_2.Y
+                ZIndex: =4
+
+            MonthCPP_2 As dropdown:
+                AllowEmptySelection: =true
+                BorderColor: |-
+                    =If(IsBlank(MonthCPP_2.Selected.Value),Red,
+                    RGBA(230, 230, 230, 1))
+                BorderThickness: =0
+                ChevronBackground: =RGBA(0, 161, 233, 1)
+                Default: =LookUp('Copacker Master Form',ID = ThisItem.ID).Month.Value
+                Fill: =RGBA(230, 230, 230, 1)
+                Height: =45
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Items: =Calendar.MonthsLong()
+                OnChange: =If(CountRows(Filter('Copacker Form', BU = CPPBU_2.Text, Month = MonthCPP_2.Selected.Value,Year = YearCPP_2.Selected.Value))>0,Set(popupalreadysubmitcpp,true))
+                Reset: =resetmonthcpp
+                Width: =368
+                X: =30
+                Y: =44
+                ZIndex: =5
+
+        DataCard20_2 As typedDataCard.blankCard:
+            BorderStyle: =BorderStyle.Solid
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =104
+            Width: =1356
+            X: =0
+            Y: =10
+            ZIndex: =1
+
+            DataCardKey25_20 As label:
+                Color: =RGBA(0, 161, 233, 1)
+                FontWeight: =Semibold
+                Height: =25
+                Size: =16
+                Text: ="Copacker"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =28
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue24_12 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =0
+                Default: =
+                DelayOutput: =true
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                Height: =5
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =1309
+                X: =28
+                Y: =46
+                ZIndex: =2
+
+            Button8_61 As button:
+                BorderThickness: =0
+                Fill: =If(varRC,DimGrey,RGBA(0, 161, 233, 1))
+                Height: =30
+                OnSelect: =Set(varRC,true);Set(varHL,false)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =10
+                Text: ="RC"
+                Width: =50
+                X: =1229
+                Y: =5
+                ZIndex: =3
+
+            Button8_62 As button:
+                BorderThickness: =0
+                Fill: =If(varHL,DimGrey,RGBA(0, 161, 233, 1))
+                Height: =30
+                HoverFill: =ColorFade(Self.Fill, -20%)
+                OnSelect: =Set(varHL,true);Set(varRC,false)
+                RadiusBottomLeft: =5
+                RadiusBottomRight: =5
+                RadiusTopLeft: =5
+                RadiusTopRight: =5
+                Size: =10
+                Text: ="hL"
+                Width: =50
+                X: =1284
+                Y: =5
+                ZIndex: =4
+
+            Label26_22 As label:
+                Align: =Center
+                Height: =31
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Opening Balance"
+                Width: =69
+                X: =908
+                Y: =65
+                ZIndex: =7
+
+            Label26_31 As label:
+                Align: =Center
+                Height: =20
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Production"
+                Width: =85
+                X: =983
+                Y: =71
+                ZIndex: =8
+
+            Label26_23 As label:
+                Align: =Center
+                Height: =50
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Delivered to Warehouse"
+                Width: =93
+                X: =1062
+                Y: =54
+                ZIndex: =9
+
+            Label26_32 As label:
+                Height: =20
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Rejected"
+                Width: =59
+                X: =1162
+                Y: =71
+                ZIndex: =10
+
+            Label26_28 As label:
+                Align: =Center
+                Height: =31
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Closing Balance"
+                Width: =108
+                X: =1225
+                Y: =65
+                ZIndex: =11
+
+            Label26_29 As label:
+                Height: =20
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Item Code"
+                Width: =76
+                X: =48
+                Y: =76
+                ZIndex: =12
+
+            Label26_30 As label:
+                Height: =20
+                PaddingLeft: =0
+                Size: =10
+                Text: ="Variant"
+                Width: =238
+                X: =209
+                Y: =76
+                ZIndex: =13
+
+        ID_DataCard1_1 As typedDataCard.textualViewCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="ID"
+            Default: =ThisItem.ID
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Form'],DataSourceInfo.DisplayName,"ID")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =false
+            Visible: =false
+            Width: =428
+            X: =1
+            Y: =10
+            ZIndex: =1
+
+            DataCardKey2_3 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue2_1 As label:
+                AutoHeight: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =27
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: |-
+                    =If(IsBlank(LookUp('Copacker Master Form',ID=ThisItem.ID)),
+                    CountRows('Copacker Master Form')+1,ThisItem.ID)
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey2_3.Y + DataCardKey2_3.Height + 5
+                ZIndex: =2
+
+        FormNo_DataCard2_2 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="FormNo"
+            Default: =ThisItem.FormNo
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Master Form'],DataSourceInfo.DisplayName,"FormNo")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            MaxLength: =DataSourceInfo([@'Copacker Master Form'], DataSourceInfo.MaxLength, "FormNo")
+            Required: =false
+            Update: =CPPFormNo_2.Text
+            Width: =226
+            X: =2
+            Y: =0
+            ZIndex: =23
+
+            DataCardKey275_2 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =34
+                Text: ="Form No"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            CPPFormNo_2 As text:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                BorderThickness: =0
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverFill: =Self.Fill
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =154
+                X: =30
+                Y: =DataCardKey275_2.Y + DataCardKey275_2.Height + 5
+                ZIndex: =2
+
+            ErrorMessage218_2 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =CPPFormNo_2.Y + CPPFormNo_2.Height
+                ZIndex: =3
+
+            StarVisible231_2 As label:
+                Align: =Align.Center
+                Height: =DataCardKey275_2.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey275_2.Y
+                ZIndex: =4
+
+        BU_DataCard1_3 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="BU"
+            Default: =ThisItem.BU
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Master Form'],DataSourceInfo.DisplayName,"BU")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            MaxLength: =DataSourceInfo([@'Copacker Master Form'], DataSourceInfo.MaxLength, "BU")
+            Required: =false
+            Update: =CPPBU_2.Text
+            Width: =226
+            X: =3
+            Y: =0
+            ZIndex: =23
+
+            DataCardKey276_2 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            CPPBU_2 As text:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                BorderThickness: =0
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverFill: =Self.Fill
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey276_2.Y + DataCardKey276_2.Height + 5
+                ZIndex: =2
+
+            ErrorMessage219_2 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =CPPBU_2.Y + CPPBU_2.Height
+                ZIndex: =3
+
+            StarVisible232_2 As label:
+                Align: =Align.Center
+                Height: =DataCardKey276_2.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey276_2.Y
+                ZIndex: =4
+
+        Year_DataCard2_2 As typedDataCard.numberEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Year"
+            Default: =ThisItem.Year
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'Copacker Master Form'],DataSourceInfo.DisplayName,"Year")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =100
+            Required: =true
+            Update: =Value(CPPYear_2.Text)
+            Width: =226
+            X: =4
+            Y: =0
+            ZIndex: =23
+
+            DataCardKey278_2 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            CPPYear_2 As text:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Format: =TextFormat.Number
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey278_2.Y + DataCardKey278_2.Height + 5
+                ZIndex: =2
+
+            ErrorMessage221_2 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: ="This field is mandatory."
+                Visible: =(IsBlank(YearCPP_2.Selected.Value) && Parent.DisplayMode=DisplayMode.Edit)
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =99
+                ZIndex: =3
+
+            StarVisible234_2 As label:
+                Align: =Align.Center
+                Height: =DataCardKey278_2.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey278_2.Y
+                ZIndex: =4
+
+            YearCPP_2 As dropdown:
+                BorderColor: |-
+                    =If(IsBlank(YearCPP_2.Selected.Value),Red,
+                    RGBA(230, 230, 230, 1))
+                BorderThickness: =0
+                ChevronBackground: =RGBA(0, 161, 233, 1)
+                Default: =Parent.Default
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Items: =["", Year(Now()),  Year(Today())-1]
+                OnChange: =If(CountRows(Filter('Copacker Form', BU = CPPBU_2.Text, Month = MonthCPP_2.Selected.Value,Year = YearCPP_2.Selected.Value))>0,Set(popupalreadysubmitcpp,true))
+                Reset: =resetyearcpp
+                Width: =154
+                X: =30
+                Y: =49
+                ZIndex: =5
+
+    SubHeader_17 As SubHeader:
+        ZIndex: =2
+
+    Header_24 As Header:
+        HeaderText: ="Copacker Production Volume Form"
+        ZIndex: =3
+
+    Button16_8 As button:
+        Color: =RGBA(0, 0, 0, 0)
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =27
+        HoverColor: =Self.Color
+        HoverFill: =Self.Fill
+        OnSelect: =Set(popuplogout,!popuplogout)
+        Text: =""
+        Width: =28
+        X: =1320
+        Y: =13
+        ZIndex: =4
+
+    Gallery5_2 As gallery.variableTemplateHeightGallery:
+        Height: =220
+        Items: |-
+            =Switch(
+                true,
+                !IsBlank(varCPP.FormNo),
+                Distinct(Filter('Copacker Form', FormNo = varCPP.FormNo),Copacker),
+                And(!IsBlank(Param("CPPFormNo")), !IsBlank(Param("Roles")),  !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), Distinct(Filter('Copacker Form', FormNo= Param("CPPFormNo")),Copacker)
+            )
+        Layout: =Layout.Vertical
+        TemplateSize: =121
+        Visible: =If(varRC,true,false)
+        Width: =1315
+        X: =23
+        Y: =296
+        ZIndex: =5
+
+        Button8_63 As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(247, 247, 247, 1)
+            Height: =49
+            Text: =""
+            Width: =1302
+            ZIndex: =1
+
+        Circle1_18 As circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =30
+            OnSelect: =Select(Parent)
+            Width: =30
+            X: =29
+            Y: =9
+            ZIndex: =2
+
+        Icon22_37 As icon.Post:
+            Color: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.View
+            Height: =22
+            Icon: =Icon.Post
+            OnSelect: =Select(Parent)
+            Width: =22
+            X: =33
+            Y: =13
+            ZIndex: =3
+
+        Label26_4 As label:
+            Color: =RGBA(0, 161, 233, 1)
+            FontWeight: =Semibold
+            Height: =34
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Result
+            Width: =Len(Label26_4.Text)*15
+            X: =76
+            Y: =8
+            ZIndex: =4
+
+        Gallery6_4 As gallery.variableTemplateHeightGallery:
+            Fill: =RGBA(253, 253, 253, 1)
+            Height: =If(Checkbox1_4.Value,CountRows(Gallery6_4.AllItems)*45,0)
+            Items: =If(Checkbox1_4.Value, Filter('Copacker Form',Copacker = Label26_4.Text),Filter('Copacker Form',Copacker = ""))
+            Layout: =Layout.Vertical
+            TemplateSize: =244
+            Width: =1305
+            Y: =Button8_63.Height
+            ZIndex: =5
+
+            CPPOB_25 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPOB_25.Text), Red, DimGrey)
+                Default: =ThisItem.'Opening Balance (RC)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Opening Balance"
+                Width: =70
+                X: =875
+                ZIndex: =3
+
+            CPPProd_7 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPProd_7.Text), Red, DimGrey)
+                Default: =ThisItem.'Production (RC)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Production"
+                Width: =70
+                X: =957
+                ZIndex: =4
+
+            CPPDelivered_7 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPDelivered_7.Text), Red, DimGrey)
+                Default: =ThisItem.'Delivered to Warehouse (RC)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Delivered to Warehouse"
+                Width: =70
+                X: =1039
+                ZIndex: =5
+
+            CPPRejected_7 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPRejected_7.Text), Red, DimGrey)
+                Default: =ThisItem.'Rejected (RC)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Rejected"
+                Width: =70
+                X: =1121
+                ZIndex: =6
+
+            CPPClosingBalance_7 As text:
+                Align: =Center
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Default: =ThisItem.'Closing Balance (RC)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Size: =10
+                Tooltip: ="Closing Balance"
+                Width: =70
+                X: =1205
+                ZIndex: =7
+
+            CPP_ProdName_4 As text:
+                BorderColor: =If(IsBlank(CPP_ProdName_4.Text),Red,DimGrey)
+                Default: =ThisItem.Variant
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Variant (e.g 'Chilled Soya Bean')"
+                Width: =453
+                X: =169
+                ZIndex: =9
+
+            CPP_ProdItemCode_4 As text:
+                BorderColor: =If(IsBlank(CPP_ProdItemCode_4.Text),Red,DimGrey)
+                Default: =ThisItem.'Item Code'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                Format: =TextFormat.Number
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Item Code (e.g '0123')"
+                Width: =157
+                ZIndex: =10
+
+            "'CPPID-test_2' As text":
+                BorderColor: =If(IsBlank('CPPID-test_2'.Text), Red, DimGrey)
+                Default: =ThisItem.ID
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Size: =10
+                Visible: =false
+                Width: =70
+                X: =392
+                ZIndex: =11
+
+            CPP_Conversion_Unit_2 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPP_Conversion_Unit_2.Text), Red, DimGrey)
+                Default: =ThisItem.UCCUnit
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Unit Conversion Coefficient (eg.'Litre/Case')"
+                Width: =147
+                X: =716
+                ZIndex: =12
+
+            CPP_UnitConversion_Amt_2 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPP_UnitConversion_Amt_2.Text), Red, DimGrey)
+                Default: =ThisItem.UCCAmt
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_4.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_4.Text, 'Product Name': CPP_ProdName_4.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_2.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_2.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_7.Text),
+                        Production2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_4.Text, ItemCode: CPP_ProdItemCode_4.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_4.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_2.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_2.Text,
+                    
+                        OpeningBalance:Value(CPPOB_25.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_7.Text),
+                            Production2: Value(Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_7.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_7.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_25.Text + CPPProd_7.Text - CPPDelivered_7.Text - CPPRejected_7.Text),
+                         ClosingBalance2: Round(Value(CPPProd_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_25.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_7.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_7.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_4.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Unit Conversion Coefficient (eg.'7.2')"
+                Width: =70
+                X: =634
+                ZIndex: =13
+
+        Checkbox1_4 As checkbox:
+            CheckboxBorderColor: =RGBA(179, 179, 179, 1)
+            OnSelect: =Select(Parent)
+            Text: ="Show all SKU"
+            Width: =297
+            X: =323
+            ZIndex: =17
+
+    Approve_bttn_3 As button:
+        BorderThickness: =0
+        Fill: =RGBA(54, 176, 75, 1)
+        Height: =42
+        HoverFill: =ColorFade(Self.Fill, -4%)
+        OnSelect: =Set(popupapprovecpp,true);Set(mandatorycommentboxcpp,false)
+        Size: =13
+        Text: ="Approve"
+        Visible: |-
+            =If(
+            
+            And(DataCardValue140.Text = "Pending approval from Regional Manager",Param("Roles") = "PM",CountRows(Filter('Approver Details', FormNo = DataCardValue347.Text, Roles = "Plant Manager", AlreadyRespond = "Yes")) > 0), false,
+            
+            And(DataCardValue140.Text = "Closed", Param("Roles") = "RM",CountRows(Filter('Approver Details', FormNo = DataCardValue347.Text, Roles = "Regional Manager", AlreadyRespond = "Yes")) > 0), false,
+            
+            true)
+        Width: =200
+        X: =1143
+        Y: =703
+        ZIndex: =6
+
+    Reject_bttn_3 As button:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        BorderThickness: =0
+        Fill: =RGBA(184, 0, 0, 1)
+        Height: =42
+        HoverBorderColor: =ColorFade(RGBA(128, 128, 128, 1), -4%)
+        HoverFill: =ColorFade(Self.Fill, -4%)
+        OnSelect: |-
+            =If(IsBlank('Commment-box-approver'.Text),Set(mandatorycommentbox,true),Set(popupusersave,true));
+            
+            If(And(mandatorycommentbox, IsBlank('Commment-box-approver'.Text)), Notify("Please leave your comment(s) in the comment box below if you reject the form.",NotificationType.Error,1500));
+        Size: =13
+        Text: ="Reject"
+        Visible: |-
+            =If(
+            
+            And(DataCardValue140.Text = "Pending approval from Regional Manager",Param("Roles") = "PM",CountRows(Filter('Approver Details', FormNo = DataCardValue347.Text, Roles = "Plant Manager", AlreadyRespond = "Yes")) > 0), false,
+            
+            And(DataCardValue140.Text = "Closed", Param("Roles") = "RM",CountRows(Filter('Approver Details', FormNo = DataCardValue347.Text, Roles = "Regional Manager", AlreadyRespond = "Yes")) > 0), false,
+            
+            true)
+        Width: =200
+        X: =928
+        Y: =703
+        ZIndex: =7
+
+    Label17_1 As label:
+        Height: =43
+        Text: ="Please leave your comment(s) in the comment box below if you reject the form."
+        Width: =810
+        X: =23
+        Y: =528
+        ZIndex: =8
+
+    "'Commment-box-approver_1' As text":
+        Default: =""
+        Height: =112
+        HoverFill: =Self.Fill
+        Width: =1315
+        X: =23
+        Y: =568
+        ZIndex: =9
+
+    Gallery5_3 As gallery.variableTemplateHeightGallery:
+        Height: =220
+        Items: |-
+            =Switch(
+                true,
+                !IsBlank(varCPP.FormNo),
+                Distinct(Filter('Copacker Form', FormNo = varCPP.FormNo),Copacker),
+                And(!IsBlank(Param("CPPFormNo")), !IsBlank(Param("Roles")),  !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), Distinct(Filter('Copacker Form', FormNo= Param("CPPFormNo")),Copacker)
+            )
+        Layout: =Layout.Vertical
+        TemplateSize: =121
+        Visible: =If(varHL,true,false)
+        Width: =1315
+        X: =23
+        Y: =296
+        ZIndex: =10
+
+        Button8_64 As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(247, 247, 247, 1)
+            Height: =49
+            Text: =""
+            Width: =1302
+            ZIndex: =1
+
+        Circle1_19 As circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =30
+            OnSelect: =Select(Parent)
+            Width: =30
+            X: =29
+            Y: =9
+            ZIndex: =2
+
+        Icon22_38 As icon.Post:
+            Color: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.View
+            Height: =22
+            Icon: =Icon.Post
+            OnSelect: =Select(Parent)
+            Width: =22
+            X: =33
+            Y: =13
+            ZIndex: =3
+
+        Label26_5 As label:
+            Color: =RGBA(0, 161, 233, 1)
+            FontWeight: =Semibold
+            Height: =34
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Result
+            Width: =Len(Label26_5.Text)*15
+            X: =76
+            Y: =8
+            ZIndex: =4
+
+        Gallery6_5 As gallery.variableTemplateHeightGallery:
+            Fill: =RGBA(253, 253, 253, 1)
+            Height: =If(Checkbox1_5.Value,CountRows(Gallery6_5.AllItems)*45,0)
+            Items: =If(Checkbox1_5.Value, Filter('Copacker Form',Copacker = Label26_5.Text),Filter('Copacker Form',Copacker = ""))
+            Layout: =Layout.Vertical
+            TemplateSize: =244
+            Width: =1305
+            Y: =Button8_64.Height
+            ZIndex: =5
+
+            CPPOB_26 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPOB_26.Text), Red, DimGrey)
+                Default: =ThisItem.'Opening Balance (hL)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Opening Balance"
+                Width: =70
+                X: =875
+                ZIndex: =3
+
+            CPPProd_8 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPProd_8.Text), Red, DimGrey)
+                Default: =ThisItem.'Production (hL)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Production"
+                Width: =70
+                X: =957
+                ZIndex: =4
+
+            CPPDelivered_8 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPDelivered_8.Text), Red, DimGrey)
+                Default: =ThisItem.'Delivered to Warehouse (hL)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Delivered to Warehouse"
+                Width: =70
+                X: =1039
+                ZIndex: =5
+
+            CPPRejected_8 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPPRejected_8.Text), Red, DimGrey)
+                Default: =ThisItem.'Rejected (hL)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Rejected"
+                Width: =70
+                X: =1121
+                ZIndex: =6
+
+            CPPClosingBalance_8 As text:
+                Align: =Center
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Default: =ThisItem.'Closing Balance (hL)'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Size: =10
+                Tooltip: ="Closing Balance"
+                Width: =70
+                X: =1205
+                ZIndex: =7
+
+            CPP_ProdName_5 As text:
+                BorderColor: =If(IsBlank(CPP_ProdName_5.Text),Red,DimGrey)
+                Default: =ThisItem.Variant
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Variant (e.g 'Chilled Soya Bean')"
+                Width: =453
+                X: =169
+                ZIndex: =9
+
+            CPP_ProdItemCode_5 As text:
+                BorderColor: =If(IsBlank(CPP_ProdItemCode_5.Text),Red,DimGrey)
+                Default: =ThisItem.'Item Code'
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                Format: =TextFormat.Number
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Item Code (e.g '0123')"
+                Width: =157
+                ZIndex: =10
+
+            "'CPPID-test_3' As text":
+                BorderColor: =If(IsBlank('CPPID-test_3'.Text), Red, DimGrey)
+                Default: =ThisItem.ID
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                Size: =10
+                Visible: =false
+                Width: =70
+                X: =392
+                ZIndex: =11
+
+            CPP_Conversion_Unit_3 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPP_Conversion_Unit_3.Text), Red, DimGrey)
+                Default: =ThisItem.UCCUnit
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Unit Conversion Coefficient (eg.'Litre/Case')"
+                Width: =147
+                X: =716
+                ZIndex: =12
+
+            CPP_UnitConversion_Amt_3 As text:
+                Align: =Center
+                BorderColor: =If(IsBlank(CPP_UnitConversion_Amt_3.Text), Red, DimGrey)
+                Default: =ThisItem.UCCAmt
+                DisplayMode: =DisplayMode.View
+                Fill: =RGBA(230, 230, 230, 1)
+                HoverBorderColor: =Self.BorderColor
+                HoverFill: =Self.Fill
+                OnChange: |+
+                    =If(
+                        CountIf(colCopackerList,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopackerList,First(Filter(colCopackerList,ID=ThisItem.ID)),
+                        {Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}),
+                    
+                        Collect(colCopackerList,{Coefficient: "Copacker Products", Copacker: Label26_5.Text, BU: CPPBU_1.Text, 'Item Code': CPP_ProdItemCode_5.Text, 'Product Name': CPP_ProdName_5.Text, 'Unit Conversion Coefficient Amt': Value(CPP_UnitConversion_Amt_3.Text), 'Unit Conversion Coefficient': CPP_Conversion_Unit_3.Text}));
+                    
+                    
+                    If(
+                        CountIf(colCopacker,ID=ThisItem.ID)>0,
+                    
+                        Patch(colCopacker,First(Filter(colCopacker,ID=ThisItem.ID)),{FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt: CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0),
+                    
+                        Production: Value(CPPProd_8.Text),
+                        Production2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0),
+                    
+                        DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0: Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                    
+                    
+                    
+                      }),
+                    
+                    Collect(colCopacker,{
+                        FormNo:CPPFormNo_1.Text, BU:CPPBU_1.Text, Month:MonthCPP_1.Selected.Value, Year:Value(YearCPP_1.Selected.Value),
+                        RequestorName: varUserName, RequestorEmail: varUserEmail, ProductName:CPP_ProdName_5.Text, ItemCode: CPP_ProdItemCode_5.Text, 
+                        ID:ThisItem.ID, Copacker: Label26_5.Text,
+                    
+                        UnitConversionCoefficientAmt:CPP_UnitConversion_Amt_3.Text, 
+                        UnitConversionCoefficient: CPP_Conversion_Unit_3.Text,
+                    
+                        OpeningBalance:Value(CPPOB_26.Text), 
+                        OpeningBalance2: Value(Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt'/ 100,0)),
+                    
+                            Production: Value(CPPProd_8.Text),
+                            Production2: Value(Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0)),
+                    
+                            DeliveredtoWarehouse: Value(CPPDelivered_8.Text),
+                        DeliveredtoWarehouse0:  Value(Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        Rejected: Value(CPPRejected_8.Text),
+                         Rejected2: Value(Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)),
+                    
+                        ClosingBalance: Value(CPPOB_26.Text + CPPProd_8.Text - CPPDelivered_8.Text - CPPRejected_8.Text),
+                         ClosingBalance2: Round(Value(CPPProd_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100, 0) + Round(Value(CPPOB_26.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 100,0) - Round(Value(CPPDelivered_8.Text) *  LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0) - Round(Value(CPPRejected_8.Text) * LookUp(colCopackerList, 'Product Name' = CPP_ProdName_5.Text).'Unit Conversion Coefficient Amt' / 10,0)
+                    
+                        
+                           }));
+                    
+                Size: =10
+                Tooltip: ="Unit Conversion Coefficient (eg.'7.2')"
+                Width: =70
+                X: =634
+                ZIndex: =13
+
+        Checkbox1_5 As checkbox:
+            CheckboxBorderColor: =RGBA(179, 179, 179, 1)
+            OnSelect: =Select(Parent)
+            Text: ="Show all SKU"
+            Width: =297
+            X: =323
+            ZIndex: =17
+
+    Label36 As label:
+        Text: ="v04"
+        Y: =728
+        ZIndex: =11
+
+    ErrorMessage21_3 As label:
+        Height: =25
+        Live: =Live.Assertive
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Text: ="This field is mandatory."
+        Visible: =If(And(IsBlank('Commment-box-approver_1'.Text),mandatorycommentbox),true,false)
+        Width: =1219
+        X: =23
+        Y: =691
+        ZIndex: =12
+
+    Pop_Up_Reject_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =24
+
+        Rectangle5_55 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =768
+            Visible: =popupusersave
+            Width: =1366
+            ZIndex: =19
+
+        Submit_Bttn_34 As button:
+            Align: =Center
+            BorderColor: =RGBA(0, 161, 233, 1)
+            BorderThickness: =0
+            Fill: =RGBA(184, 0, 0, 1)
+            Height: =44
+            HoverColor: =ColorFade(Self.Color, -4%)
+            HoverFill: =ColorFade(Self.Fill, -4%)
+            OnSelect: |-
+                ='ApprovalFlow-TriggerRejectButtonforApproverCopacker'.Run(CPPFormNo_2.Text, Param("Roles"), Param("ApproverName"), Param("ApproverEmail"), 'Commment-box-approver_1'.Text, CPPBU_2.Text, "Approver");
+                
+                If(
+                
+                And(!IsBlank(Param("CPPFormNo")), Param("Roles") = "PM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = Param("CPPFormNo")),
+                    {Status: "Rejected"
+                    }),
+                
+                And(!IsBlank(varCPP.FormNo), Param("Roles") = "PM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = varCPP.FormNo),
+                    {Status: "Rejected"
+                    }),
+                    
+                And(!IsBlank(Param("CPPFormNo")), Param("Roles") = "RM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = Param("CPPFormNo")),
+                    {Status: "Rejected"
+                    }),
+                
+                And(!IsBlank(varCPP.FormNo), Param("Roles") = "RM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = varCPP.FormNo),
+                    {Status:  "Rejected"
+                    }));
+                
+                
+                If(
+                
+                And(CountRows(Filter('Approver Details', FormNo = varCPP.FormNo, Roles = varUserRoles.Value)) > 0, !IsBlank(varCPP.FormNo)),
+                Patch('Approver Details', 
+                LookUp('Approver Details', FormNo = varCPP.FormNo),
+                    {ApproverEmail:varUserEmail,
+                    ApproverName:varUserName,
+                    Roles: varUserRoles.Value,
+                    FormNo:varCPP.FormNo,
+                    Response:"Reject",
+                    ResponseDate: Today(),
+                    Comments: 'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                
+                And(CountRows(Filter('Approver Details', FormNo = Param("CPPFormNo"), Roles = (Param("Roles")))) > 0, !IsBlank(Param("CPPFormNo"))),
+                Patch('Approver Details', 
+                LookUp('Approver Details', FormNo = Param("CPPFormNo")),
+                    {ApproverEmail: Param("ApproverEmail"),
+                    ApproverName: Substitute(Substitute(Param("ApproverName"),"+"," "),"%20"," "),
+                    Roles: If(Param("Roles") = "PM", "Plant Manager", Param("Roles") = "RM", "Regional Manager"),
+                    FormNo:Param("CPPFormNo"),
+                    Response:"Reject",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                    
+                And(CountRows(Filter('Approver Details', FormNo = varCPP.FormNo, Roles = varUserRoles.Value)) = 0, !IsBlank(varCPP.FormNo)),
+                Patch('Approver Details', 
+                    {ApproverEmail:varUserEmail,
+                    ApproverName:varUserName,
+                    Roles: varUserRoles.Value,
+                    FormNo:varCPP.FormNo,
+                    Response:"Reject",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                
+                And(CountRows(Filter('Approver Details', FormNo = Param("CPPFormNo"), Roles = (Param("Roles")))) = 0, !IsBlank(Param("CPPFormNo"))),
+                Patch('Approver Details', 
+                    {ApproverEmail: Param("ApproverEmail"),
+                    ApproverName: Substitute(Substitute(Param("ApproverName"),"+"," "),"%20"," "),
+                    Roles: If(Param("Roles") = "PM", "Plant Manager", Param("Roles") = "RM", "Regional Manager"),
+                    FormNo:Param("CPPFormNo"),
+                    Response:"Reject",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }));
+                
+                Set(popupapprovesuccessful,true)
+            PressedColor: =ColorFade(Self.Color, -4%)
+            PressedFill: =ColorFade(Self.Fill, -4%)
+            Size: =13
+            Text: ="Yes"
+            Visible: =popupusersave
+            Width: =209
+            X: =452
+            Y: =664
+            ZIndex: =20
+
+        Cancel_Bttn_36 As button:
+            Align: =Center
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =44
+            HoverColor: =RGBA(128, 128, 128, 1)
+            HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -4%)
+            OnSelect: =Set(popupusersave,false)
+            Size: =13
+            Text: ="No"
+            Visible: =popupusersave
+            Width: =209
+            X: =684
+            Y: =664
+            ZIndex: =21
+
+        Circle2_51 As circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =65
+            Visible: =popupusersave
+            Width: =65
+            X: =651
+            Y: =264
+            ZIndex: =22
+
+        Image6_31 As image:
+            Height: =45
+            Image: ='signature-with-a-pen'
+            Visible: =popupusersave
+            Width: =45
+            X: =661
+            Y: =274
+            ZIndex: =23
+
+        Label3_53 As label:
+            Align: =Center
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =87
+            Size: =18
+            Text: ="Do you want to continue rejecting the form?"
+            Visible: =popupusersave
+            Width: =681
+            X: =343
+            Y: =362
+            ZIndex: =24
+
+    Pop_Up_Approve_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =26
+
+        Rectangle5_54 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =768
+            Visible: =popupapprovecpp
+            Width: =1366
+            ZIndex: =13
+
+        Submit_Bttn_33 As button:
+            Align: =Center
+            BorderColor: =RGBA(0, 161, 233, 1)
+            BorderThickness: =0
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =44
+            HoverFill: =ColorFade(Self.Fill, -4%)
+            OnSelect: |-
+                ='ApprovalFlow-TriggerApproveButtonforApproverCopacker'.Run(CPPFormNo_2.Text, Param("Roles"), Param("ApproverName"), Param("ApproverEmail"), 'Commment-box-approver_1'.Text, CPPBU_2.Text, "Approver");
+                
+                If(
+                
+                And(!IsBlank(Param("CPPFormNo")), Param("Roles") = "PM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = Param("CPPFormNo")),
+                    {Status: "Pending approval from Regional Manager"
+                    }),
+                
+                And(!IsBlank(varCPP.FormNo), Param("Roles") = "PM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = varCPP.FormNo),
+                    {Status: "Pending approval from Regional Manager"
+                    }),
+                    
+                And(!IsBlank(Param("CPPFormNo")), Param("Roles") = "RM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = Param("CPPFormNo")),
+                    {Status: "Approved"
+                    }),
+                
+                And(!IsBlank(varCPP.FormNo), Param("Roles") = "RM"),
+                Patch('Copacker Master Form', 
+                LookUp('Copacker Master Form', FormNo = varCPP.FormNo),
+                    {Status:  "Approved"
+                    }));
+                
+                
+                If(
+                
+                And(CountRows(Filter('Approver Details', FormNo = varCPP.FormNo, Roles = varUserRoles.Value)) > 0, !IsBlank(varCPP.FormNo)),
+                Patch('Approver Details', 
+                LookUp('Approver Details', FormNo = varCPP.FormNo),
+                    {ApproverEmail:varUserEmail,
+                    ApproverName:varUserName,
+                    Roles: varUserRoles.Value,
+                    FormNo:varCPP.FormNo,
+                    Response:"Approve",
+                    ResponseDate: Today(),
+                    Comments: 'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                
+                And(CountRows(Filter('Approver Details', FormNo = Param("CPPFormNo"), Roles = (Param("Roles")))) > 0, !IsBlank(Param("CPPFormNo"))),
+                Patch('Approver Details', 
+                LookUp('Approver Details', FormNo = Param("CPPFormNo")),
+                    {ApproverEmail: Param("ApproverEmail"),
+                    ApproverName: Substitute(Substitute(Param("ApproverName"),"+"," "),"%20"," "),
+                    Roles: If(Param("Roles") = "PM", "Plant Manager", Param("Roles") = "RM", "Regional Manager"),
+                    FormNo:Param("CPPFormNo"),
+                    Response:"Approve",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                    
+                And(CountRows(Filter('Approver Details', FormNo = varCPP.FormNo, Roles = varUserRoles.Value)) = 0, !IsBlank(varCPP.FormNo)),
+                Patch('Approver Details', 
+                    {ApproverEmail:varUserEmail,
+                    ApproverName:varUserName,
+                    Roles: varUserRoles.Value,
+                    FormNo:varCPP.FormNo,
+                    Response:"Approve",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }),
+                
+                And(CountRows(Filter('Approver Details', FormNo = Param("CPPFormNo"), Roles = (Param("Roles")))) = 0, !IsBlank(Param("CPPFormNo"))),
+                Patch('Approver Details', 
+                    {ApproverEmail: Param("ApproverEmail"),
+                    ApproverName: Substitute(Substitute(Param("ApproverName"),"+"," "),"%20"," "),
+                    Roles: If(Param("Roles") = "PM", "Plant Manager", Param("Roles") = "RM", "Regional Manager"),
+                    FormNo:Param("CPPFormNo"),
+                    Response:"Approve",
+                    ResponseDate: Today(),
+                    Comments:  'Commment-box-approver_1'.Text,
+                    NeedInput: "No",
+                    EditForm: "No",
+                    AlreadyRespond: "Yes"
+                    }));
+                
+                Set(popupapprovesuccessful,true)
+            Size: =13
+            Text: ="Yes"
+            Visible: =popupapprovecpp
+            Width: =209
+            X: =452
+            Y: =664
+            ZIndex: =14
+
+        Cancel_Bttn_35 As button:
+            Align: =Center
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =44
+            HoverColor: =RGBA(128, 128, 128, 1)
+            HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -4%)
+            OnSelect: =Set(popupapprovecpp,false)
+            Size: =13
+            Text: ="No"
+            Visible: =popupapprovecpp
+            Width: =209
+            X: =684
+            Y: =664
+            ZIndex: =15
+
+        Circle2_50 As circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =65
+            Visible: =popupapprovecpp
+            Width: =65
+            X: =651
+            Y: =264
+            ZIndex: =16
+
+        Image6_30 As image:
+            Height: =45
+            Image: ='signature-with-a-pen'
+            Visible: =popupapprovecpp
+            Width: =45
+            X: =661
+            Y: =274
+            ZIndex: =17
+
+        Label3_52 As label:
+            Align: =Center
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =87
+            Size: =18
+            Text: ="Do you want to continue approving the form?"
+            Visible: =popupapprovecpp
+            Width: =681
+            X: =343
+            Y: =362
+            ZIndex: =18
+
+    Pop_Up_Success_2 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =29
+
+        Rectangle5_56 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =768
+            Visible: =popupapprovesuccessful
+            Width: =1366
+            ZIndex: =25
+
+        iconCircle2_4 As circle.Circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Visible: =popupapprovesuccessful
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =319
+            ZIndex: =26
+
+        iconCheck2_4 As icon.Check:
+            Height: =iconCircle2_4.Height
+            Icon: =Icon.Check
+            OnSelect: |
+                =
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingTop
+            PaddingTop: =24
+            Visible: =popupapprovesuccessful
+            Width: =iconCircle2_4.Width
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =319
+            ZIndex: =27
+
+        LblSuccessMsg2_6 As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =100
+            Size: =18
+            Text: ="This was successfully completed"
+            Visible: =popupapprovesuccessful
+            Width: =Parent.Width * 0.75
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =449
+            ZIndex: =28
+

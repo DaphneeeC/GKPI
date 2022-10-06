@@ -1,0 +1,55 @@
+Screen1 As screen:
+
+    Label40 As label:
+        Text: |-
+            =With({year:2021 , weekNo:3},
+                  With({weekDate: DateAdd(Date(year,1,1), 7* weekNo)},
+                       DateAdd(weekDate,
+                               -(Weekday(weekDate)),
+                              Days
+                       )
+                  )
+            )
+        X: =44
+        Y: =324
+        ZIndex: =1
+
+    Label42 As label:
+        Text: |-
+            =With({year:2022 , weekNo:1},
+            With({weekDate:
+                  If(ISOWeekNum(Date(year,1,1)) < 1,
+                     DateAdd(Date(year,1,1), 7* (weekNo-1)),
+                     DateAdd(Date(year,1,1), 7* weekNo)
+                  )
+                  },
+                  DateAdd(weekDate,
+                    -(Weekday(weekDate,StartOfWeek.MondayZero)),
+                    Days
+               )
+             )
+            )
+        X: =44
+        Y: =378
+        ZIndex: =2
+
+    Label43 As label:
+        Text: =DateAdd(DatePicker2.SelectedDate, 7, Days)
+        X: =44
+        Y: =435
+        ZIndex: =3
+
+    DatePicker2 As datepicker:
+        DefaultDate: =
+        X: =76
+        Y: =504
+        ZIndex: =4
+
+    Label42_1 As label:
+        Height: =39
+        Text: =Text(DateAdd(DateValue(Label42.Text), 6, Days), "mm/dd/yyyy")
+        Width: =192
+        X: =225
+        Y: =379
+        ZIndex: =5
+

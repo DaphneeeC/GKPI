@@ -1,0 +1,451 @@
+"'TotalPage-VDOT' As screen":
+
+    Header_50 As Header_4:
+        HeaderText: ="Total VDOT"
+        ZIndex: =3
+
+    Button5_10 As button:
+        BorderColor: =RGBA(45, 45, 45, 1)
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(255, 255, 255, 0.89)
+        Height: =623
+        Text: =""
+        Width: =1303
+        X: =31
+        Y: =91
+        ZIndex: =4
+
+    Label1_30 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Size: =7.5
+        Text: =Email_Input.Text
+        Width: =256
+        X: =1078
+        ZIndex: =5
+
+    YearVDOTSearch_1 As dropdown:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        Items: =Sort(Distinct('VDOT Form'.Year,Year),Result,Descending)
+        Size: =12
+        X: =78
+        Y: =164
+        ZIndex: =6
+
+    Label2_9 As label:
+        FontWeight: =Semibold
+        Text: ="Year"
+        Width: =142
+        X: =78
+        Y: =124
+        ZIndex: =7
+
+    Label2_8 As label:
+        FontWeight: =Semibold
+        Text: ="BU"
+        Width: =142
+        X: =450
+        Y: =124
+        ZIndex: =8
+
+    Group7_4 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =14
+
+        Image7_14 As image:
+            Height: =110
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Visible: =false
+            Width: =256
+            X: =790
+            Y: =101
+            ZIndex: =9
+
+        Button5_30 As button:
+            BorderColor: =RGBA(45, 45, 45, 1)
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 161, 233, 0.91)
+            Height: =110
+            Text: =""
+            Visible: =false
+            Width: =256
+            X: =790
+            Y: =101
+            ZIndex: =10
+
+        Label2_10 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =Normal
+            Height: =36
+            Text: ="High Month Amount VDOT"
+            Visible: =false
+            Width: =227
+            X: =804
+            Y: =144
+            ZIndex: =11
+
+        Icon13_3 As icon.ArrowDown:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =26
+            Icon: =Icon.ArrowUp
+            Visible: =false
+            Width: =37
+            X: =799
+            Y: =118
+            ZIndex: =12
+
+        Label2_18 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =Semibold
+            Height: =31
+            Text: =First(Sort(Filter('VDOT Form',Year=YearVDOTSearch_1.Selected.Value),Amount,Descending)).Month.Value & " | " & Text(First(Sort(Filter('VDOT Form', Year=YearVDOTSearch_1.Selected.Value),Amount,Descending)).Amount,"0%")
+            Visible: =false
+            Width: =227
+            X: =804
+            Y: =170
+            ZIndex: =13
+
+    BG_43 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =15
+
+        Image3_50 As image:
+            Height: =768
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Width: =1366
+            ZIndex: =1
+
+        Rectangle1_76 As rectangle:
+            Fill: =RGBA(255, 255, 255, 0.9)
+            Height: =768
+            Width: =1365
+            X: =1
+            ZIndex: =2
+
+    ComboBox1_4 As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        InputTextPlaceholder: =""
+        IsSearchable: =false
+        Items: =Distinct(varUserBU.Value,Value)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        SelectMultiple: =false
+        X: =450
+        Y: =164
+        ZIndex: =21
+
+    Group7_3 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =22
+
+        Image7_15 As image:
+            Height: =110
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Visible: =false
+            Width: =256
+            X: =1059
+            Y: =101
+            ZIndex: =16
+
+        Button5_31 As button:
+            BorderColor: =RGBA(45, 45, 45, 1)
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 161, 233, 0.91)
+            Height: =110
+            Text: =""
+            Visible: =false
+            Width: =256
+            X: =1059
+            Y: =101
+            ZIndex: =17
+
+        Label2_11 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =Normal
+            Height: =36
+            Text: ="Low Month Amount VDOT"
+            Visible: =false
+            Width: =227
+            X: =1073
+            Y: =144
+            ZIndex: =18
+
+        Icon13_4 As icon.ArrowDown:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =26
+            Icon: =Icon.ArrowUp
+            Visible: =false
+            Width: =37
+            X: =1068
+            Y: =118
+            ZIndex: =19
+
+        Label2_19 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =Semibold
+            Height: =31
+            Text: =First(Sort(Filter('VDOT Form',Year=YearVDOTSearch_1.Selected.Value),Amount,Ascending)).Month.Value & " | " & Text(First(Sort(Filter('VDOT Form', Year=YearVDOTSearch_1.Selected.Value),Amount,Ascending)).Amount,"0%")
+            Visible: =false
+            Width: =227
+            X: =1073
+            Y: =170
+            ZIndex: =20
+
+    Gallery23 As gallery.galleryVertical:
+        Height: =458
+        Items: =GroupBy(Filter('VDOT Form', Year=Value(YearVDOTSearch_1.Selected.Result), ComboBox1_4.Selected.Result in BU),"field_1","ByBU")
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplateSize: =50
+        Width: =1289
+        X: =45
+        Y: =264
+        ZIndex: =23
+
+        Gallery28 As gallery.galleryHorizontal:
+            Height: =50
+            Items: =Sort(ThisItem.ByBU, Value(MonthNum), Ascending)
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =90
+            Width: =1072
+            X: =118
+            ZIndex: =1
+
+            Label65 As label:
+                Align: =Align.Right
+                OnSelect: =Select(Parent)
+                Size: =12
+                Text: =Text(ThisItem.Amount, "0%")
+                Width: =60
+                ZIndex: =1
+
+        Label67 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.field_1
+            Width: =130
+            ZIndex: =2
+
+        Label69 As label:
+            Align: =Align.Right
+            OnSelect: =Select(Parent)
+            Text: =Text(Sum(Gallery28.AllItems, Label65.Text)/CountRows(Gallery28.AllItems)*100, "0.0%")
+            Width: =70
+            X: =1190
+            ZIndex: =3
+
+    Icon2_52 As icon.Home:
+        Color: =RGBA(128, 128, 128, 1)
+        Height: =29
+        Icon: =Icon.Home
+        OnSelect: =Navigate(Homepage)
+        Width: =25
+        X: =52
+        Y: =11
+        ZIndex: =39
+
+    Group12_2 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =40
+
+        Rectangle22_22 As rectangle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =29
+            Width: =1265
+            X: =58
+            Y: =237
+            ZIndex: =24
+
+        Label40_108 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Jan"
+            Width: =90
+            X: =148
+            Y: =237
+            ZIndex: =25
+
+        Label40_107 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Feb"
+            Width: =90
+            X: =238
+            Y: =237
+            ZIndex: =26
+
+        Label40_106 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Mar"
+            Width: =90
+            X: =328
+            Y: =237
+            ZIndex: =27
+
+        Label40_105 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Apr"
+            Width: =90
+            X: =418
+            Y: =237
+            ZIndex: =28
+
+        Label40_104 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="May"
+            Width: =90
+            X: =508
+            Y: =237
+            ZIndex: =29
+
+        Label40_103 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Jun"
+            Width: =90
+            X: =598
+            Y: =237
+            ZIndex: =30
+
+        Label40_102 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Jul"
+            Width: =90
+            X: =688
+            Y: =237
+            ZIndex: =31
+
+        Label40_101 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Aug"
+            Width: =90
+            X: =778
+            Y: =237
+            ZIndex: =32
+
+        Label40_100 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Sept"
+            Width: =90
+            X: =868
+            Y: =237
+            ZIndex: =33
+
+        Label40_99 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Oct"
+            Width: =90
+            X: =958
+            Y: =237
+            ZIndex: =34
+
+        Label40_98 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Nov"
+            Width: =90
+            X: =1048
+            Y: =237
+            ZIndex: =35
+
+        Label40_97 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Dec"
+            Width: =90
+            X: =1138
+            Y: =237
+            ZIndex: =36
+
+        Label40_96 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="BU"
+            Width: =90
+            X: =58
+            Y: =237
+            ZIndex: =37
+
+        Label40_94 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="YTD"
+            Width: =90
+            X: =1228
+            Y: =237
+            ZIndex: =38
+

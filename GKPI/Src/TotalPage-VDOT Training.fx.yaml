@@ -1,0 +1,439 @@
+"'TotalPage-VDOT Training' As screen":
+
+    Gallery16 As gallery.galleryVertical:
+        Height: =458
+        Items: ='VDOT Form'
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplateSize: =50
+        Width: =1289
+        X: =45
+        Y: =264
+        ZIndex: =1
+
+    Group3 As group:
+        Height: =5
+        Width: =5
+        X: =80
+        Y: =80
+        ZIndex: =3
+
+        Image8 As image:
+            Height: =768
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Width: =1366
+            ZIndex: =2
+
+        Rectangle28 As rectangle:
+            Fill: =RGBA(255, 255, 255, 0.9)
+            Height: =768
+            Width: =1365
+            X: =1
+            ZIndex: =3
+
+    Header_5 As Header_1:
+        HeaderText: ="Total VDOT"
+        ZIndex: =4
+
+    Label58 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Size: =7.5
+        Text: =Email_Input.Text
+        Width: =256
+        X: =1078
+        ZIndex: =5
+
+    Button11 As button:
+        BorderColor: =RGBA(45, 45, 45, 1)
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(255, 255, 255, 0.89)
+        Height: =623
+        Text: =""
+        Width: =1303
+        X: =31
+        Y: =91
+        ZIndex: =6
+
+    Dropdown2 As dropdown:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        Items: =Sort(Distinct('VDOT Form'.Year,Year),Result,Descending)
+        X: =78
+        Y: =164
+        ZIndex: =7
+
+    Label59 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =12
+        Text: ="Year"
+        Width: =142
+        X: =78
+        Y: =124
+        ZIndex: =8
+
+    Label60 As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =12
+        Text: ="BU"
+        Width: =142
+        X: =450
+        Y: =124
+        ZIndex: =9
+
+    Group4 As group:
+        Height: =5
+        Width: =5
+        X: =280
+        Y: =280
+        ZIndex: =14
+
+        Image10 As image:
+            Height: =110
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Visible: =false
+            Width: =256
+            X: =790
+            Y: =101
+            ZIndex: =10
+
+        Button20 As button:
+            DisplayMode: =DisplayMode.View
+            Height: =110
+            Text: =""
+            Visible: =false
+            Width: =256
+            X: =790
+            Y: =101
+            ZIndex: =11
+
+        Label61 As label:
+            Height: =36
+            Text: ="High Month Amount VDOT"
+            Visible: =false
+            Width: =227
+            X: =220
+            Y: =2144
+            ZIndex: =12
+
+        Icon20 As icon.Alarm:
+            Height: =26
+            Icon: =Icon.ArrowUp
+            Visible: =false
+            Width: =37
+            X: =799
+            Y: =2408
+            ZIndex: =13
+
+        Label62 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            Text: =First(Sort(Filter('VDOT Form',Year=Dropdown2.Selected.Value),Amount,Descending)).Month.Value & " | " & Text(First(Sort(Filter('VDOT Form', Year=Dropdown2.Selected.Value),Amount,Descending)).Amount,"0%")
+            Visible: =false
+            Width: =227
+            X: =804
+            Y: =170
+            ZIndex: =14
+
+    Group4_1 As group:
+        Height: =5
+        Width: =5
+        X: =100
+        Y: =100
+        ZIndex: =19
+
+        Image10_1 As image:
+            Height: =110
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Visible: =false
+            Width: =256
+            X: =1059
+            Y: =101
+            ZIndex: =15
+
+        Button20_1 As button:
+            DisplayMode: =DisplayMode.View
+            Height: =110
+            Text: ="Button"
+            Visible: =false
+            Width: =256
+            X: =1059
+            Y: =101
+            ZIndex: =16
+
+        Label61_1 As label:
+            Height: =36
+            Text: ="Low Month Amount VDOT"
+            Visible: =false
+            Width: =227
+            X: =1073
+            Y: =144
+            ZIndex: =17
+
+        Icon20_2 As icon.Alarm:
+            Height: =26
+            Icon: =Icon.ArrowUp
+            Visible: =false
+            Width: =37
+            X: =1068
+            Y: =118
+            ZIndex: =18
+
+        Label62_1 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            Text: =First(Sort(Filter('VDOT Form',Year=Dropdown2.Selected.Value),Amount,Ascending)).Month.Value & " | " & Text(First(Sort(Filter('VDOT Form', Year=Dropdown2.Selected.Value),Amount,Ascending)).Amount,"0%")
+            Visible: =false
+            Width: =227
+            X: =1073
+            Y: =170
+            ZIndex: =19
+
+    ComboBox4 As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        InputTextPlaceholder: =""
+        IsSearchable: =false
+        Items: =Distinct(varUserBU.Value,Value)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        SelectMultiple: =false
+        X: =450
+        Y: =164
+        ZIndex: =20
+
+    Icon22 As icon.Alarm:
+        Height: =29
+        Icon: =Icon.Home
+        OnSelect: =Navigate(Homepage)
+        Width: =25
+        X: =52
+        Y: =11
+        ZIndex: =36
+
+    Gallery17 As gallery.galleryHorizontal:
+        Height: =458
+        Items: =GroupBy(Filter('VDOT Form', Year=Value(Dropdown2.Selected.Result), ComboBox4.Selected.Result in BU),"field_1","ByBU")
+        ShowScrollbar: =false
+        TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(320, Self.Width - 60), Min(320, Self.Height - 60))
+        Width: =1289
+        X: =45
+        Y: =264
+        ZIndex: =37
+
+        Label45 As label:
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.field_1
+            Width: =130
+            ZIndex: =1
+
+        Label46 As label:
+            Align: =Align.Right
+            OnSelect: =Select(Parent)
+            Text: =Text(Sum(Gallery15.AllItems, Label48.Text)/CountRows(Gallery15.AllItems)*100, "0.0%")
+            Width: =70
+            X: =1190
+            ZIndex: =2
+
+        Gallery15 As gallery.galleryHorizontal:
+            Height: =50
+            Items: =Sort(ThisItem.ByBU, Value(MonthNum), Ascending)
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =90
+            Width: =1072
+            X: =118
+            ZIndex: =3
+
+            Label48 As label:
+                Align: =Align.Right
+                OnSelect: =Select(Parent)
+                Text: =Text(ThisItem.Amount, "0%")
+                Width: =60
+                Y: =40
+                ZIndex: =1
+
+    Group7 As group:
+        Height: =5
+        Width: =5
+        X: =480
+        Y: =480
+        ZIndex: =40
+
+        Rectangle30 As rectangle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =29
+            Width: =1265
+            X: =58
+            Y: =237
+            ZIndex: =21
+
+        Label71 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Text: ="Jan"
+            Width: =90
+            X: =148
+            Y: =237
+            ZIndex: =22
+
+        Label72 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Text: ="Feb"
+            Width: =90
+            X: =238
+            Y: =237
+            ZIndex: =23
+
+        Label73 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Mar"
+            Width: =90
+            X: =328
+            Y: =237
+            ZIndex: =24
+
+        Label74 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Apr"
+            Width: =90
+            X: =418
+            Y: =237
+            ZIndex: =25
+
+        Label75 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="May"
+            Width: =90
+            X: =508
+            Y: =237
+            ZIndex: =26
+
+        Label76 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Jun"
+            Width: =90
+            X: =598
+            Y: =237
+            ZIndex: =27
+
+        Label77 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Jul"
+            Width: =90
+            X: =688
+            Y: =237
+            ZIndex: =28
+
+        Label78 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Aug"
+            Width: =90
+            X: =778
+            Y: =237
+            ZIndex: =29
+
+        Label79 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Sept"
+            Width: =90
+            X: =868
+            Y: =237
+            ZIndex: =30
+
+        Label80 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Oct"
+            Width: =90
+            X: =958
+            Y: =237
+            ZIndex: =31
+
+        Label81 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Nov"
+            Width: =90
+            X: =1048
+            Y: =237
+            ZIndex: =32
+
+        Label82 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="Dec"
+            Width: =90
+            X: =1138
+            Y: =237
+            ZIndex: =33
+
+        Label83 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="BU"
+            Width: =90
+            X: =58
+            Y: =237
+            ZIndex: =34
+
+        Label84 As label:
+            Align: =Align.Right
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =29
+            Size: =12
+            Text: ="YTD"
+            Width: =90
+            X: =1228
+            Y: =237
+            ZIndex: =35
+

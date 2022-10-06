@@ -1,0 +1,51 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |+
+        =Set(varUser, User());
+        Set(varUserEmail, Email_Input.Text);
+        
+        Set(varUserName, LookUp('User List', Email = varUserEmail).Name);
+        
+        Set(varUserMoreThanOneBU, LookUp('User List', Email = varUserEmail).'More Than One BU?');
+        
+        Set(varUserForm, LookUp('User List', Email = varUserEmail).Form);
+        
+        Set(varUserRoles, LookUp('User List', Email = varUserEmail).Roles);
+        
+        Set(varUserBU, LookUp('User List', Email = varUserEmail).BU);
+        
+        Set(varUserCountry, LookUp('User List', Email = varUserEmail).Country);
+        
+        Switch(
+            true,
+            And(!IsBlank(Param("UserName")), !IsBlank(Param("Email")),Param("Page") = "PasswordPage"),Navigate(Password_Page),
+            And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail")), !IsBlank(Param("BU"))), 
+            Navigate(UFE_ApproverID_test),
+            And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), Navigate(UFE_ApproverMY),
+            And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), Navigate(UFE_ApproverMY),
+            And(!IsBlank(Param("CPPFormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail")), !IsBlank(Param("Copacker"))), 
+            Navigate(CPP_Approver_Page),
+            And(!IsBlank(Param("UtilFormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))), 
+            Navigate('Utilities-Approver'),
+             And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "PM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail")), !IsBlank(Param("BU"))), 
+            Navigate(UFE_ApproverID_test),
+            And(!IsBlank(Param("CPPFormNo")), !IsBlank(Param("Roles")),Param("Roles") = "RM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail")), !IsBlank(Param("Copacker"))), 
+            Navigate(CPP_Approver_Page),
+            And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "RM", 
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail")), !IsBlank(Param("BU"))), 
+            Navigate(UFE_ApproverID_test),
+            And(!IsBlank(Param("FormNo")), !IsBlank(Param("Roles")),Param("Roles") = "RM",
+            !IsBlank(Param("ApproverName")), !IsBlank(Param("ApproverEmail"))),Navigate(UFE_ApproverMY));
+        
+        Set(Colors,{Primary:RGBA(0,161,233,1), Secondary:RGBA(230,230,230,1), Accept:RGBA(54,176,75,100), Decline:RGBA(168,0,0,100),
+        Approve:RGBA(54,176,75,100), RequireAdditional:RGBA(245,184,0,100)});
+        
+    StartScreen: =
+

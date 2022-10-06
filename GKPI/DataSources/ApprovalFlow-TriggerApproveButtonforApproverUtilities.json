@@ -1,0 +1,9 @@
+[
+  {
+    "AddinConnectorId": "e0f4b46d-c42d-4f72-82aa-ed6d6c7a438d",
+    "AddinId": "6d1f157d-95bf-406d-b65d-cfd3240f724e",
+    "Name": "ApprovalFlow-TriggerApproveButtonforApproverUtilities",
+    "ServiceKind": "AddinWadl",
+    "Type": "ServiceInfo"
+  }
+]

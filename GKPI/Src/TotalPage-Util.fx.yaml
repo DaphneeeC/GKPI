@@ -1,0 +1,1206 @@
+"'TotalPage-Util' As screen":
+
+    Button5_18 As button:
+        BorderColor: =RGBA(45, 45, 45, 1)
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(255, 255, 255, 0.89)
+        Height: =716
+        Text: =""
+        Width: =1341
+        X: =25
+        Y: =52
+        ZIndex: =3
+
+    Label43_24 As label:
+        AutoHeight: =true
+        FontWeight: =Semibold
+        Size: =11
+        Text: |-
+            ="Year
+            "
+        Width: =223
+        X: =281
+        Y: =103
+        ZIndex: =4
+
+    YearDDUtil As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        IsSearchable: =false
+        Items: |-
+            =Sort(
+            Distinct(
+            Filter('Utilities Total Form', BU = BUUser.Selected.Value).Year,Year),Result,Descending)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        X: =277
+        Y: =133
+        ZIndex: =5
+
+    BG_24 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =6
+
+        Image3_31 As image:
+            Height: =768
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Width: =1366
+            ZIndex: =1
+
+        Rectangle1_58 As rectangle:
+            Fill: =RGBA(255, 255, 255, 0.9)
+            Height: =768
+            Width: =1365
+            X: =1
+            ZIndex: =2
+
+    BUUser As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DefaultSelectedItems: =LookUp('User List', Email = varUserEmail).BU
+        DisplayFields: =["Value"]
+        IsSearchable: =false
+        Items: =LookUp('User List', Email = varUserEmail).BU
+        SearchFields: =["Value"]
+        SearchItems: =[]
+        Visible: =false
+        X: =433
+        Y: =163
+        ZIndex: =7
+
+    MonthHeader As label:
+        AutoHeight: =true
+        FontWeight: =Semibold
+        Size: =11
+        Text: |-
+            ="Month
+            "
+        Width: =223
+        X: =624
+        Y: =103
+        ZIndex: =8
+
+    MonthDDUtil As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        IsSearchable: =false
+        Items: |-
+            =Distinct(
+            Filter('Utilities Total Form', BU = BUUser.Selected.Value).Month,Month)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        X: =620
+        Y: =133
+        ZIndex: =9
+
+    UtilHeader As label:
+        AutoHeight: =true
+        FontWeight: =Semibold
+        Size: =11
+        Text: |-
+            ="Utilities
+            "
+        Width: =223
+        X: =970
+        Y: =103
+        ZIndex: =10
+
+    UtilDD As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        IsSearchable: =false
+        Items: |-
+            =Distinct(
+            Filter('Utilities Total Form', BU = BUUser.Selected.Value).Utilities,Utilities)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        X: =958
+        Y: =133
+        ZIndex: =11
+
+    Container1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =530
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =1341
+        X: =25
+        Y: =238
+        ZIndex: =12
+
+        "Gallery12 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =300
+            Items: |-
+                =Sort(Filter('Utilities Total Form',
+                IsBlank(UtilBU.SelectedItems) || IsEmpty(UtilBU.SelectedItems) ||
+                BU in UtilBU.SelectedItems,
+                IsBlank(YearDDUtil.SelectedItems) || IsEmpty(YearDDUtil.SelectedItems) ||
+                Year in YearDDUtil.SelectedItems,
+                IsBlank(MonthDDUtil.SelectedItems)  || IsEmpty(MonthDDUtil.SelectedItems) ||
+                Month in MonthDDUtil.SelectedItems,
+                IsBlank(UtilDD.SelectedItems) || IsEmpty(UtilDD.SelectedItems) ||
+                Utilities in UtilDD.SelectedItems),Year,Descending)
+            Layout: =Layout.Vertical
+            LayoutMinHeight: =287
+            LayoutMinWidth: =320
+            TemplatePadding: =0
+            TemplateSize: =90
+            ZIndex: =1
+
+            Title1 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Utilities
+                Width: =73
+                X: =215
+                ZIndex: =2
+
+            Separator2 As rectangle:
+                Fill: =RGBA(230, 230, 230, 1)
+                Height: =1
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =5
+
+            Title1_1 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.UtilitiesType
+                Width: =135
+                X: =299
+                ZIndex: =6
+
+            Title1_2 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.DataType
+                Width: =146
+                X: =445
+                ZIndex: =7
+
+            Title1_3 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Unit
+                Width: =65
+                X: =602
+                ZIndex: =8
+
+            Title1_4 As label:
+                Align: =Center
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.TotalUtilities
+                Width: =79
+                X: =678
+                ZIndex: =9
+
+            Title1_5 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion1
+                Width: =128
+                X: =768
+                ZIndex: =10
+
+            Title1_6 As label:
+                Align: =Center
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion1Unit
+                Width: =71
+                X: =907
+                ZIndex: =11
+
+            Title1_7 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion2
+                Width: =80
+                X: =1080
+                ZIndex: =12
+
+            Title1_8 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion2Unit
+                Width: =80
+                X: =1171
+                ZIndex: =13
+
+            Title1_9 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion2Amt
+                Width: =66
+                X: =1265
+                ZIndex: =14
+
+            Title1_10 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Year
+                Width: =51
+                X: =71
+                ZIndex: =15
+
+            Title1_11 As label:
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Month
+                Width: =71
+                X: =133
+                ZIndex: =16
+
+            Title1_12 As label:
+                Align: =Center
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =10
+                Text: =ThisItem.Conversion1Amt
+                Width: =80
+                X: =989
+                ZIndex: =17
+
+            Label38_1 As label:
+                FontWeight: =Semibold
+                Height: =90
+                OnSelect: =Select(Parent)
+                Size: =10
+                Text: =ThisItem.BU
+                Width: =50
+                X: =10
+                ZIndex: =18
+
+    Rectangle22 As rectangle:
+        Fill: =RGBA(0, 161, 233, 1)
+        Height: =54
+        Width: =1341
+        X: =25
+        Y: =191
+        ZIndex: =13
+
+    Label11 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Year"
+        Width: =64
+        X: =85
+        Y: =198
+        ZIndex: =14
+
+    Label11_1 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Month"
+        Width: =64
+        X: =142
+        Y: =198
+        ZIndex: =15
+
+    Label11_2 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Utilities"
+        Width: =64
+        X: =220
+        Y: =198
+        ZIndex: =16
+
+    Label11_3 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Utilities Type"
+        Width: =114
+        X: =311
+        Y: =198
+        ZIndex: =17
+
+    Label11_4 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Data Type"
+        Width: =114
+        X: =443
+        Y: =198
+        ZIndex: =18
+
+    Label11_5 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Unit"
+        Width: =83
+        X: =604
+        Y: =198
+        ZIndex: =19
+
+    Label11_6 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Total"
+        Width: =83
+        X: =698
+        Y: =198
+        ZIndex: =20
+
+    Label11_7 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Conversion"
+        Width: =111
+        X: =770
+        Y: =198
+        ZIndex: =21
+
+    Label11_8 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Unit"
+        Width: =101
+        X: =923
+        Y: =198
+        ZIndex: =22
+
+    Label11_9 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Total"
+        Width: =101
+        X: =1004
+        Y: =198
+        ZIndex: =23
+
+    Label11_10 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Conversion"
+        Width: =111
+        X: =1081
+        Y: =198
+        ZIndex: =24
+
+    Label11_11 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Unit"
+        Width: =101
+        X: =1174
+        Y: =198
+        ZIndex: =25
+
+    Label11_12 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="Total"
+        Width: =101
+        X: =1255
+        Y: =198
+        ZIndex: =26
+
+    Label11_28 As label:
+        Align: =Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Size: =10
+        Text: ="BU"
+        Width: =64
+        X: =24
+        Y: =198
+        ZIndex: =27
+
+    UtilHeaderBU As label:
+        AutoHeight: =true
+        FontWeight: =Semibold
+        Size: =11
+        Text: |-
+            ="BU
+            "
+        Width: =223
+        X: =81
+        Y: =103
+        ZIndex: =28
+
+    UtilBU As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["Result"]
+        IsSearchable: =false
+        Items: =Distinct('Utilities Total Form',BU)
+        SearchFields: =["Result"]
+        SearchItems: =[]
+        Width: =183
+        X: =77
+        Y: =133
+        ZIndex: =29
+
+    Rectangle26 As rectangle:
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =40
+        Width: =40
+        X: =1302
+        Y: =133
+        ZIndex: =30
+
+    "'Subtotal-Icon-Elec_3' As icon.ListScrollWatchlist":
+        Color: =RGBA(153, 153, 153, 1)
+        Height: =29
+        Icon: =Icon.ListScrollWatchlist
+        OnSelect: |+
+            =Set(varTotalUtil,!varTotalUtil)
+            
+        Tooltip: ="Subtotal"&" "&CoefficientUtilSaved_1.Text
+        Width: =29
+        X: =1308
+        Y: =139
+        ZIndex: =31
+
+    Header_26 As Header_1:
+        HeaderText: ="E-1 G-KPI (Utility Related) Total"
+        ZIndex: =32
+
+    Rectangle27 As rectangle:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =551
+        Visible: =varTotalUtil
+        Width: =1341
+        X: =25
+        Y: =217
+        ZIndex: =33
+
+    Rectangle22_8 As rectangle:
+        Fill: =RGBA(0, 161, 233, 1)
+        Height: =45
+        Visible: =varTotalUtil
+        Width: =1341
+        X: =25
+        Y: =191
+        ZIndex: =84
+
+    "'Subtotal-TotalUtil' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =85
+
+        MonthHeader_3 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="CO2-C
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =71
+            Y: =239
+            ZIndex: =34
+
+        "'Subtotal-CO2E-DT_1' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Consumption"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =233
+            Y: =236
+            ZIndex: =35
+
+        "'Subtotal-CO2E-DT_2' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kg"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =911
+            Y: =236
+            ZIndex: =36
+
+        "'Subtotal-CO2E-DT_3' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="CO2-C"),TotalUtilities),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =236
+            ZIndex: =37
+
+        MonthHeader_4 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="CO2-E
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =72
+            Y: =298
+            ZIndex: =38
+
+        "'Subtotal-CO2E-DT_4' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="CO2 Emissions"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =234
+            Y: =295
+            ZIndex: =39
+
+        "'Subtotal-CO2E-DT_5' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kg-CO2e"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =912
+            Y: =295
+            ZIndex: =40
+
+        "'Subtotal-CO2E-DT_6' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Sum(Filter(Gallery12.AllItems,Utilities="CO2-E" && UtilitiesType = "Emissions based on energy consumption"),TotalUtilities)+Sum(Filter(Gallery12.AllItems,Utilities="CO2-E" && UtilitiesType = "Emissions based on energy consumption"),Conversion1Amt))-Sum(Filter(Gallery12.AllItems,Utilities="CO2-E" && UtilitiesType = "Purchased green electricity certificate"),Conversion1Amt)-Sum(Filter(Gallery12.AllItems,Utilities="CO2-E" && UtilitiesType = "CO2 Emissions Offset"),TotalUtilities),"###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =295
+            ZIndex: =41
+
+        MonthHeader_5 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="Electricity
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =70
+            Y: =350
+            ZIndex: =42
+
+        "'Subtotal-CO2E-DT_7' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Purchased Electricity Amount"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =232
+            Y: =347
+            ZIndex: =43
+
+        "'Subtotal-CO2E-DT_8' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kWh"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =347
+            ZIndex: =44
+
+        "'Subtotal-CO2E-DT_9' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && DataType="Purchased Electricity Amount"),TotalUtilities),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =347
+            ZIndex: =45
+
+        "'Subtotal-CO2E-DT_10' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Purchased Energy Amount"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =232
+            Y: =379
+            ZIndex: =46
+
+        "'Subtotal-CO2E-DT_11' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="MJ"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =379
+            ZIndex: =47
+
+        "'Subtotal-CO2E-DT_12' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && Conversion1="Purchased Energy Amount"),Conversion1Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =379
+            ZIndex: =48
+
+        "'Subtotal-CO2E-DT_13' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Ref. Overall Elc. Consumption"
+            Visible: =varTotalUtil
+            Width: =348
+            X: =232
+            Y: =408
+            ZIndex: =49
+
+        "'Subtotal-CO2E-DT_14' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kWh"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =408
+            ZIndex: =50
+
+        "'Subtotal-CO2E-DT_15' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && Unit="kWh"),TotalUtilities),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =408
+            ZIndex: =51
+
+        "'Subtotal-CO2E-DT_16' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Ref. Overall Ene. Consumption"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =232
+            Y: =440
+            ZIndex: =52
+
+        "'Subtotal-CO2E-DT_17' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="MJ"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =440
+            ZIndex: =53
+
+        "'Subtotal-CO2E-DT_18' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && Conversion1Unit="MJ"),Conversion1Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =440
+            ZIndex: =54
+
+        "'Subtotal-CO2E-DT_19' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Ref. Renewable Energy Ratio"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =232
+            Y: =474
+            ZIndex: =55
+
+        "'Subtotal-CO2E-DT_20' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="%"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =474
+            ZIndex: =56
+
+        "'Subtotal-CO2E-DT_21' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,UtilitiesType="Ref. Renewable (e.g. Solar)"),TotalUtilities)/Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && Unit="kWh"),TotalUtilities)*100,"#.##")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =474
+            ZIndex: =57
+
+        "'Subtotal-CO2E-DT_22' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="CO2 Emissions"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =232
+            Y: =506
+            ZIndex: =58
+
+        "'Subtotal-CO2E-DT_23' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kg-CO2e"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =910
+            Y: =496
+            ZIndex: =59
+
+        "'Subtotal-CO2E-DT_24' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Electricity" && Conversion2Unit="kg-CO2e"),Conversion2Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =496
+            ZIndex: =60
+
+        MonthHeader_6 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="Fuel
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =72
+            Y: =564
+            ZIndex: =61
+
+        "'Subtotal-CO2E-DT_25' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Purchased Energy Amount"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =234
+            Y: =558
+            ZIndex: =62
+
+        "'Subtotal-CO2E-DT_26' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="MJ"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =912
+            Y: =558
+            ZIndex: =63
+
+        "'Subtotal-CO2E-DT_27' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Fuel"),Conversion1Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =558
+            ZIndex: =64
+
+        "'Subtotal-CO2E-DT_28' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Ref. Energy excl. Elc. Generation"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =234
+            Y: =590
+            ZIndex: =65
+
+        "'Subtotal-CO2E-DT_29' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="MJ"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =912
+            Y: =590
+            ZIndex: =66
+
+        "'Subtotal-CO2E-DT_30' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Fuel"),Conversion1Amt)-Sum(Filter(Gallery12.AllItems,Utilities="Elc. Generation (e.g. CoGen); Natural Gas or Liquefied Gas"),Conversion1Amt),"###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =590
+            ZIndex: =67
+
+        "'Subtotal-CO2E-DT_31' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="CO2 Emissions"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =234
+            Y: =619
+            ZIndex: =68
+
+        "'Subtotal-CO2E-DT_32' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="kg-CO2e"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =912
+            Y: =619
+            ZIndex: =69
+
+        "'Subtotal-CO2E-DT_33' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Fuel" ),Conversion2Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =619
+            ZIndex: =70
+
+        MonthHeader_7 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="Production
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =72
+            Y: =674
+            ZIndex: =71
+
+        "'Subtotal-CO2E-DT_34' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Production Amount"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =234
+            Y: =671
+            ZIndex: =72
+
+        "'Subtotal-CO2E-DT_35' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="hL"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =912
+            Y: =671
+            ZIndex: =73
+
+        "'Subtotal-CO2E-DT_36' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Production"),Conversion1Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =671
+            ZIndex: =74
+
+        Rectangle29 As rectangle:
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =2
+            Visible: =varTotalUtil
+            Width: =1209
+            X: =72
+            Y: =283
+            ZIndex: =75
+
+        Rectangle29_1 As rectangle:
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =2
+            Visible: =varTotalUtil
+            Width: =1209
+            X: =73
+            Y: =340
+            ZIndex: =76
+
+        Rectangle29_2 As rectangle:
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =2
+            Visible: =varTotalUtil
+            Width: =1209
+            X: =70
+            Y: =550
+            ZIndex: =77
+
+        Rectangle29_3 As rectangle:
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =2
+            Visible: =varTotalUtil
+            Width: =1209
+            X: =73
+            Y: =665
+            ZIndex: =78
+
+        MonthHeader_8 As label:
+            Align: =Left
+            AutoHeight: =true
+            FontWeight: =Semibold
+            Size: =12
+            Text: |-
+                ="Water
+                "
+            Visible: =varTotalUtil
+            Width: =223
+            X: =73
+            Y: =728
+            ZIndex: =79
+
+        "'Subtotal-CO2E-DT_40' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="Water Consumption"
+            Visible: =varTotalUtil
+            Width: =347
+            X: =235
+            Y: =726
+            ZIndex: =80
+
+        "'Subtotal-CO2E-DT_41' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: ="hL"
+            Visible: =varTotalUtil
+            Width: =211
+            X: =913
+            Y: =726
+            ZIndex: =81
+
+        "'Subtotal-CO2E-DT_42' As label":
+            Height: =42
+            PaddingLeft: =10
+            Size: =10
+            Text: |-
+                =Text(
+                Sum(Filter(Gallery12.AllItems,Utilities="Water"),Conversion1Amt),"###,###,###,###")
+            Visible: =varTotalUtil
+            Width: =211
+            X: =1155
+            Y: =726
+            ZIndex: =82
+
+        Rectangle29_4 As rectangle:
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =2
+            Visible: =varTotalUtil
+            Width: =1209
+            X: =74
+            Y: =720
+            ZIndex: =83
+
+    "'Subtotal-CO2E-DT_37' As label":
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Height: =42
+        PaddingLeft: =10
+        Size: =10
+        Text: ="Data Type"
+        Visible: =varTotalUtil
+        Width: =347
+        X: =234
+        Y: =192
+        ZIndex: =86
+
+    "'Subtotal-CO2E-DT_38' As label":
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Height: =42
+        PaddingLeft: =10
+        Size: =10
+        Text: ="Unit"
+        Visible: =varTotalUtil
+        Width: =177
+        X: =904
+        Y: =192
+        ZIndex: =87
+
+    "'Subtotal-CO2E-DT_39' As label":
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =Semibold
+        Height: =42
+        PaddingLeft: =10
+        Size: =10
+        Text: ="Subtotal"
+        Visible: =varTotalUtil
+        Width: =177
+        X: =1182
+        Y: =192
+        ZIndex: =88
+

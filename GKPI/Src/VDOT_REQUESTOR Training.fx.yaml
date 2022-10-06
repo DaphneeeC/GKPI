@@ -1,0 +1,750 @@
+"'VDOT_REQUESTOR Training' As screen":
+    Height: =
+    OnVisible: |-
+        =Set(varShowMenu,true);Set(varShowMenu,false);
+        If(!'VDOT-Form'.Valid,SubmitForm('VDOT-Form')||Notify("Please fill in the mandatory field(s) in VDOT Form",NotificationType.Error,1500));
+
+    HtmlText2 As htmlViewer:
+        Height: =669
+        HtmlText: |-
+            ="<div style='background-color: rgba(253,253,253,1); box-shadow: 1px 2px 22px 0px rgba(236,236,236,1); margin: 30px; width: 1295px; height: 548px; border-radius: 10px'></div>"
+        Width: =1366
+        Y: =99
+        ZIndex: =3
+
+    BG As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =3
+
+        Image5 As image:
+            Height: =768
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Width: =1366
+            ZIndex: =1
+
+        Rectangle11 As rectangle:
+            Fill: =RGBA(255, 255, 255, 0.97)
+            Height: =768
+            Width: =1366
+            ZIndex: =2
+
+    Header_3 As Header:
+        HeaderText: ="D-1 VDOT Form"
+        ZIndex: =4
+
+    SubHeader_2 As SubHeader:
+        ZIndex: =5
+
+    "'VDOT-Form Training' As form":
+        DataSource: ='VDOT Form'
+        Height: =520
+        Item: =Defaults('VDOT Form')
+        SnapToColumns: =false
+        Width: =1285
+        X: =35
+        Y: =144
+        ZIndex: =6
+
+        Title_DataCard2 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =ThisItem.Title
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'VDOT Form'],DataSourceInfo.DisplayName,"Title")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =48
+            MaxLength: =DataSourceInfo([@'VDOT Form'], DataSourceInfo.MaxLength, "Title")
+            Required: =false
+            Update: =DataCardValue36.Text
+            Width: =1284
+            X: =0
+            Y: =0
+            ZIndex: =7
+
+            DataCardKey56 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 161, 233, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =34
+                PaddingLeft: =10
+                Size: =16
+                Text: ="Form Details"
+                Width: =1087
+                Wrap: =false
+                X: =69
+                Y: =8
+                ZIndex: =1
+
+            Circle1 As circle:
+                Fill: =RGBA(0, 161, 233, 1)
+                Height: =31
+                Width: =31
+                X: =38
+                Y: =13
+                ZIndex: =2
+
+            Icon13 As icon.DocumentwithContent:
+                Color: =RGBA(255, 255, 255, 1)
+                Height: =23
+                Icon: =Icon.DocumentWithContent
+                Width: =23
+                X: =42
+                Y: =17
+                ZIndex: =3
+
+        FormNo_DataCardT As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =ThisItem.Title
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="FormNo"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =145
+            MaxLength: =DataSourceInfo([@'UFE-Temporary-List'], DataSourceInfo.MaxLength, "FormNo")
+            Required: =false
+            Update: =DataCardValueT.Text
+            Width: =428
+            X: =1
+            Y: =1
+            ZIndex: =7
+
+            DataCardKeyT As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Height: =34
+                Text: ="Form No"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessageT As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Color: =RGBA(168, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValueT.Y + DataCardValueT.Height
+                ZIndex: =2
+
+            DataCardValueT As text:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                BorderThickness: =0
+                Default: ="VDOT"&"-"&BUVDOT.Text&Right(YearVDOT.Selected.Value, 2 )&Switch(MonthVDOT.Selected.Value,"January", "01", "February", "02", "March", "03", "April", "04", "May", "05", "June", "06", "July", "07", "August", "08", "September", "09",  "October", "10", "November", "11", "December", "12")
+                DelayOutput: =true
+                Fill: =RGBA(0, 0, 0, 0)
+                HoverBorderColor: =RGBA(230, 230, 230, 1)
+                HoverFill: =Self.Fill
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKeyT.Y + DataCardKeyT.Height + 5
+                ZIndex: =3
+
+            StarVisibleT As label:
+                Align: =Align.Center
+                Height: =34
+                Text: ="*"
+                Visible: =false
+                Width: =30
+                Y: =40
+                ZIndex: =4
+
+        BU_DataCardT As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="field_2"
+            Default: =ThisItem.'Requestor Name'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'VDOT Form'],DataSourceInfo.DisplayName,"field_1")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'VDOT Form'], DataSourceInfo.MaxLength, "field_2")
+            Required: =false
+            Update: =BUVDOTT.Text
+            Width: =125
+            X: =2
+            Y: =1
+            ZIndex: =7
+
+            DataCardKey153 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            BUVDOTT As text:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                BorderThickness: =0
+                Default: ="EBSB"
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(0, 0, 0, 0)
+                HoverFill: =Self.Fill
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey153.Y + DataCardKey153.Height + 5
+                ZIndex: =2
+
+            ErrorMessage44 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =BUVDOTT.Y + BUVDOTT.Height
+                ZIndex: =3
+
+            StarVisible44 As label:
+                Align: =Align.Center
+                Height: =DataCardKey153.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey153.Y
+                ZIndex: =4
+
+        Year_DataCard6 As typedDataCard.numberEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Year"
+            Default: =ThisItem.Year
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'VDOT Form'],DataSourceInfo.DisplayName,"Year")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =Value(DataCardValue55.Text)
+            Width: =321
+            X: =3
+            Y: =1
+            ZIndex: =7
+
+            DataCardKey157 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage63 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |
+                    =YearVDOTT.Y +YearVDOTT.Height
+                ZIndex: =3
+
+            StarVisible162 As label:
+                Align: =Align.Center
+                Height: =DataCardKey157.Height
+                Text: ="*"
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey157.Y
+                ZIndex: =4
+
+            ErrorMessage44T As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Color: =RGBA(168, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =24
+                Live: =Live.Assertive
+                Text: ="This field is mandatory."
+                Visible: =(IsBlank(YearVDOTT.Selected.Value) && Parent.DisplayMode =DisplayMode.Edit)
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =99
+                ZIndex: =5
+
+            YearVDOTT As dropdown:
+                BorderColor: =If(IsBlank(YearVDOTT.Selected.Value), Color.Red, Parent.BorderColor)
+                ChevronBackground: =RGBA(0, 161, 233, 1)
+                Items: =["", Year(Now()),  Year(Today())-1]
+                Width: =Parent.Width - 60
+                X: =44
+                Y: =56
+                ZIndex: =6
+
+        Month_DataCard9 As typedDataCard.comboBoxEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="field_4"
+            Default: =ThisItem.Month
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'VDOT Form'],DataSourceInfo.DisplayName,"field_4")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =MonthVDOTT.Selected
+            Width: =321
+            X: =963
+            Y: =1
+            ZIndex: =7
+
+            DataCardKey155 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            MonthVDOTT As combobox:
+                BorderColor: =If(IsBlank(MonthVDOTT.Selected.Value), Color.Red, Parent.BorderColor)
+                ChevronBackground: =RGBA(0, 161, 233, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                InputTextPlaceholder: =
+                Items: =Choices([@'VDOT Form'].Month)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('VDOT Form'.Month,MonthVDOTT.SearchText)
+                SelectMultiple: =false
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey155.Y + DataCardKey155.Height + 5
+                ZIndex: =2
+
+            ErrorMessage52 As label:
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =MonthVDOTT.Y + MonthVDOTT.Height
+                ZIndex: =3
+
+            StarVisible52 As label:
+                Align: =Align.Center
+                Height: =DataCardKey155.Height
+                Text: ="*"
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey155.Y
+                ZIndex: =4
+
+            ErrorMessage200T As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Color: =RGBA(168, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =23
+                Text: ="This field is mandatory."
+                Visible: =(IsBlank(MonthVDOTT.Selected.Value) && Parent.DisplayMode=DisplayMode.Edit)
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =99
+                ZIndex: =5
+
+        Amount_DataCard1 As typedDataCard.numberEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="field_5"
+            Default: =ThisItem.Amount
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'VDOT Form'],DataSourceInfo.DisplayName,"field_5")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =122
+            Required: =false
+            Update: =Value(DataCardValue44.Text)
+            Width: =1284
+            X: =-1
+            Y: =2
+            ZIndex: =7
+
+            DataCardKey156 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 161, 233, 1)
+                FontWeight: =Semibold
+                Height: =34
+                Size: =16
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =60
+                Y: =49
+                ZIndex: =1
+
+            DataCardValue44 As text:
+                BorderColor: =If(IsBlank(DataCardValue63.Text), Color.Red, Parent.BorderColor)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Format: =TextFormat.Number
+                HoverFill: =Self.Fill
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =150
+                X: =165
+                Y: =46
+                ZIndex: =2
+
+            ErrorMessage62 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue44.Y + DataCardValue44.Height
+                ZIndex: =3
+
+            StarVisible75 As label:
+                Align: =Align.Center
+                Height: =DataCardKey156.Height
+                Text: ="*"
+                Width: =30
+                Wrap: =false
+                X: =30
+                Y: =DataCardKey156.Y
+                ZIndex: =4
+
+            ErrorMessage204T As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =23
+                Live: =Live.Assertive
+                Text: ="This field is mandatory."
+                Visible: =(IsBlank(DataCardValue44.Text) && Parent.DisplayMode=DisplayMode.Edit)
+                Width: =Parent.Width - 60
+                X: =60
+                Y: =99
+                ZIndex: =5
+
+            Rectangle23 As rectangle:
+                Fill: =RGBA(230, 230, 230, 1)
+                Height: =5
+                Width: =1224
+                X: =30
+                Y: =13
+                ZIndex: =6
+
+        Status_DataCard6 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Status"
+            Default: =ThisItem.Status
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'VDOT Form'], DataSourceInfo.MaxLength, "Status")
+            Required: =false
+            Update: =DataCardValue59.Text
+            Width: =266
+            X: =0
+            Y: =2
+            ZIndex: =7
+
+            DataCardKey159 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue59 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =0
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey159.Y + DataCardKey159.Height + 5
+                ZIndex: =2
+
+            ErrorMessage159 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue59.Y + DataCardValue59.Height
+                ZIndex: =3
+
+            StarVisible163 As label:
+                Align: =Align.Center
+                Height: =DataCardKey159.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey159.Y
+                ZIndex: =4
+
+        "'Requestor Email_DataCard3' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="field_3"
+            Default: =ThisItem.'Requestor Email'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'VDOT Form'], DataSourceInfo.MaxLength, "field_3")
+            Required: =false
+            Update: =DataCardValue39.Text
+            Width: =107
+            X: =1
+            Y: =2
+            ZIndex: =7
+
+            DataCardKey154 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue39 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =0
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =51
+                ZIndex: =2
+
+            ErrorMessage49 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue39.Y + DataCardValue39.Height
+                ZIndex: =3
+
+            StarVisible49 As label:
+                Align: =Align.Center
+                Height: =DataCardKey154.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey154.Y
+                ZIndex: =4
+
+    QC_Submit_btn_T As button:
+        DisplayMode: |
+            =If(
+            IsBlank(YearVDOTT.Selected.Value) ||
+            IsBlank(MonthVDOTT.Selected.Value) ||
+            IsBlank(DataCardValue44.Text),
+            Disabled,Edit)
+        Fill: =RGBA(0, 161, 233, 1)
+        Height: =42
+        OnSelect: =Set(popupusersubmit,true)
+        Text: ="Submit"
+        Width: =200
+        X: =1133
+        Y: =703
+        ZIndex: =7
+
+    QC_Save_btn_T As button:
+        Fill: =RGBA(128, 128, 128, 1)
+        Height: =42
+        HoverBorderColor: =ColorFade(RGBA(128, 128, 128, 1), -4%)
+        HoverFill: =ColorFade(RGBA(128, 128, 128, 1), -4%)
+        Text: ="Save"
+        Width: =200
+        X: =918
+        Y: =703
+        ZIndex: =8
+
+    Icon16 As icon.ArrowDown:
+        Height: =29
+        Icon: =Icon.Home
+        OnSelect: =Navigate(Homepage)
+        Width: =25
+        X: =60
+        Y: =9
+        ZIndex: =15
+
+    Pop_Up_User_Submit_T As group:
+        Height: =5
+        Width: =5
+        X: =200
+        Y: =200
+        ZIndex: =15
+
+        Rectangle25 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =768
+            OnSelect: =
+            Visible: =popupusersubmit
+            Width: =1366
+            ZIndex: =9
+
+        Submit_Button22 As button:
+            BorderColor: =RGBA(0, 161, 233, 1)
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =44
+            HoverFill: =ColorFade(RGBA(0, 161, 233, 1), -4%)
+            OnSelect: |+
+                =SubmitForm('VDOT-Form');
+                Navigate(Successful);
+                
+            Size: =13
+            Text: ="Submit"
+            Visible: =popupusersubmit
+            Width: =209
+            X: =667
+            Y: =664
+            ZIndex: =10
+
+        Cancel_Button23 As button:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =44
+            HoverColor: =RGBA(128, 128, 128, 1)
+            HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -4%)
+            OnSelect: =Set(popupusersubmit,false)
+            Size: =13
+            Text: ="Cancel"
+            Visible: =popupusersubmit
+            Width: =209
+            X: =452
+            Y: =664
+            ZIndex: =11
+
+        Circle5 As circle:
+            Height: =65
+            OnSelect: =
+            Visible: =popupusersubmit
+            Width: =65
+            X: =651
+            Y: =264
+            ZIndex: =12
+
+        Image6 As image:
+            Height: =45
+            Image: ='signature-with-a-pen'
+            OnSelect: =
+            Visible: =popupusersubmit
+            Width: =45
+            X: =661
+            Y: =274
+            ZIndex: =13
+
+        Label47 As label:
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =87
+            OnSelect: =
+            Size: =18
+            Text: ="Are you sure you want to submit the form for approval?"
+            Visible: =popupusersubmit
+            Width: =681
+            X: =343
+            Y: =362
+            ZIndex: =14
+
+    LeftNavBarForm_7 As LeftNavBarForm:
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =768
+        Width: =LeftNavBarForm_7.MenuWidth
+        ZIndex: =16
+
+    Button24 As button:
+        Color: =RGBA(153, 153, 153, 1)
+        Fill: =RGBA(0, 0, 0, 0)
+        OnSelect: |-
+            =Launch("https://asahisea.sharepoint.com/sites/GKPISTG2/Shared%20Documents/Definition-VDOT-DIFOT.pdf")
+        Text: ="Definition"
+        Width: =115
+        X: =626
+        Y: =55
+        ZIndex: =17
+

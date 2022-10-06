@@ -1,0 +1,665 @@
+Coefficient_Requestor As screen:
+    Height: =
+    OnVisible: |+
+        =ClearCollect(colCopackerUser,
+        AddColumns(ShowColumns(Filter('Copacker List',Country=varUserCountry),"Copacker","Coefficient","BU","ItemCode","ProductName","UnitConversionCoefficientAmt","ID","UnitConversionCoefficient","EffectiveDate","Country"),"IsChoosen",false));
+        
+        ClearCollect(colCopackerUserChangeLog,ShowColumns('Coefficients for G-KPI Calculation Change Log',"ID", "ChangeLogNew", "Item", "ChangeLogCO2","ChangeLogDS", "Remarks", "EffectiveDate",  "Coefficient"));
+        
+        Clear(colCopackerUserChangeLog);
+        
+        Set(varCPPEdit,false); Set(updatecpp,false); Set(savecpp,false); Set(popupsavecoefficientcppuser,false); Set(changeloguser,false)
+        
+
+    HtmlText1_7 As htmlViewer:
+        Height: =704
+        HtmlText: |-
+            ="<div style='background-color: rgba(253,253,253,1); box-shadow: 1px 2px 22px 0px rgba(236,236,236,1); margin: 30px; width: 1295px; height: 630px; border-radius: 10px'></div>"
+        Width: =1366
+        Y: =64
+        ZIndex: =3
+
+    SubHeader_25 As SubHeader:
+        Height: =95
+        ZIndex: =4
+
+    Header_36 As Header:
+        HeaderText: ="Coefficients for G-KPI Calculation (Utility Related) | Copacker"
+        ZIndex: =5
+
+    ChangeBG_1 As rectangle:
+        Fill: =RGBA(255, 255, 255, 0.29)
+        Height: =673
+        Visible: =false
+        Width: =1366
+        Y: =95
+        ZIndex: =6
+
+    Gallery7_1 As gallery.variableTemplateHeightGallery:
+        Height: =342
+        Items: |+
+            =Sort(
+            Filter(colCopackerUser,
+            ProductName in ComboBox1.SelectedItems Or ComboBox1.Selected.'Product Name' = Blank(),
+            ItemCode in ComboBox1_1.SelectedItems Or ComboBox1_1.Selected.'Item Code' = Blank()
+            ),Copacker,Ascending)
+            
+        Layout: =Layout.Vertical
+        TemplateFill: =If(ThisItem.IsChoosen,RGBA(247, 247, 247, 1),Transparent)
+        TemplateSize: =39
+        Width: =1255
+        X: =50
+        Y: =265
+        ZIndex: =7
+
+        TextInput6_16 As text:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Default: =ThisItem.ProductName
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =33
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnChange: |-
+                =Patch(colCoefficientCopacker, LookUp(colCoefficientCopacker, ID = ThisItem.ID),
+                {'Product Name': TextInput6_16.Text})
+            OnSelect: =Select(Parent)
+            Size: =11
+            Width: =343
+            X: =220
+            Y: =3
+            ZIndex: =2
+
+        TextInput6_17 As text:
+            Align: =Center
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Default: =ThisItem.ItemCode
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =33
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnChange: |-
+                =Patch(colCoefficientCopacker, LookUp(colCoefficientCopacker, ID = ThisItem.ID),
+                {'Item Code': Value(TextInput6_17.Text)})
+            OnSelect: =Select(Parent)
+            Size: =11
+            Width: =81
+            X: =582
+            Y: =3
+            ZIndex: =3
+
+        TextInput6_18 As text:
+            Align: =Center
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Default: =ThisItem.Copacker
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =33
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnChange: |-
+                =Patch(colCoefficientCopacker, LookUp(colCoefficientCopacker, ID =ThisItem.ID),
+                {Copacker:TextInput6_18.Text})
+            OnSelect: =Select(Parent)
+            Size: =11
+            Width: =286
+            X: =682
+            Y: =3
+            ZIndex: =4
+
+        TextInput6_19 As text:
+            Align: =Center
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Color: =RGBA(27, 179, 55, 1)
+            Default: =ThisItem.UnitConversionCoefficientAmt
+            DisplayMode: =If(ThisItem.IsChoosen,DisplayMode.Edit,View)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =33
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnChange: |+
+                =Patch(colCopackerUser, LookUp(colCopackerUser, ID = ThisItem.ID),
+                {UnitConversionCoefficientAmt: Value(TextInput6_19.Text), Coefficient: "Copacker Products"});
+                
+                If(CountRows(Filter(colCopackerUser, IsBlank(UnitConversionCoefficientAmt))) > 0, Notify("Please fill in the Unit Conversion Coefficient in Coefficients for G-KPI Calculation (Utility Related)",NotificationType.Error,3500));
+                
+                If(
+                    CountIf(colCopackerUserChangeLog,ID=ThisItem.ID)>0,
+                
+                    Patch(colCopackerUserChangeLog,First(Filter(colCopackerUserChangeLog,ID=ThisItem.ID)),
+                    {ChangeLogNew: LookUp('Copacker List',ID = ThisItem.ID).'Unit Conversion Coefficient Amt' & " change to " & TextInput6_19.Text
+                
+                    }),
+                
+                    Collect(colCopackerUserChangeLog,{ID:ThisItem.ID, ChangeLogNew: LookUp('Copacker List',ID = ThisItem.ID).'Unit Conversion Coefficient Amt' & " change to " & TextInput6_19.Text, Item:TextInput6_16.Text, Coefficient: "Copacker Products"
+                    
+                    }));
+                
+                If(Value(TextInput6_19.Text)=LookUp('Copacker List',ID = ThisItem.ID).'Unit Conversion Coefficient Amt',
+                Remove(colCopackerUserChangeLog,First( Filter(colCopackerUserChangeLog, ID=ThisItem.ID ) ) ))
+                
+                
+            OnSelect: =Select(Parent)
+            Size: =11
+            Width: =119
+            X: =987
+            Y: =3
+            ZIndex: =5
+
+        TextInput6_20 As text:
+            Align: =Center
+            BorderColor: =RGBA(230, 230, 230, 1)
+            Default: =ThisItem.UnitConversionCoefficient
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =33
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnChange: |-
+                =Patch(colCoefficientCopacker, LookUp(colCoefficientCopacker, ID = ThisItem.ID),
+                {'Unit Conversion Coefficient': TextInput6_20.Text})
+            OnSelect: =Select(Parent)
+            Size: =11
+            Width: =117
+            X: =1126
+            Y: =3
+            ZIndex: =6
+
+        DatePicker4 As datepicker:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            DefaultDate: =ThisItem.EffectiveDate
+            DisplayMode: =If(ThisItem.IsChoosen,DisplayMode.Edit,View)
+            Fill: =RGBA(0, 0, 0, 0)
+            Format: ="mm/yyyy"
+            Height: =35
+            OnChange: |
+                =If(
+                    CountRows(Filter(colCopackerUser,ID = ThisItem.ID))>0, 
+                    Patch(colCopackerUser, LookUp(colCopackerUser, ID = ThisItem.ID),
+                    {EffectiveDate: DatePicker4.SelectedDate}),
+                    CountRows(Filter(colCopackerUser,ID = ThisItem.ID))=0, 
+                    Patch(colCopackerUser,
+                    {EffectiveDate: DatePicker4.SelectedDate, Coefficient: "Copacker Products"})
+                
+                );
+                
+                If(
+                    CountIf(colCopackerUserChangeLog,ID=ThisItem.ID)>0,
+                
+                    Patch(colCopackerUserChangeLog,First(Filter(colCopackerUserChangeLog,ID=ThisItem.ID)),
+                    {EffectiveDate: LookUp('Copacker List',ID = ThisItem.ID).EffectiveDate & " change to " & DatePicker4.SelectedDate
+                    }),
+                
+                    Collect(colCopackerUserChangeLog,{ID:ThisItem.ID, EffectiveDate: LookUp('Copacker List',ID = ThisItem.ID).EffectiveDate & " change to " & DatePicker4.SelectedDate, Item:TextInput6_16.Text, Coefficient: "Copacker Products"
+                    
+                    }));
+                
+                If(DatePicker4.SelectedDate=LookUp('Copacker List',ID = ThisItem.ID).EffectiveDate,
+                Remove(colCopackerUserChangeLog,First( Filter(colCopackerUserChangeLog, ID=ThisItem.ID ) ) ))
+            OnSelect: =Select(Parent)
+            Width: =142
+            X: =59
+            Y: =2
+            ZIndex: =7
+
+        Checkbox7 As checkbox:
+            CheckboxBorderColor: =RGBA(179, 179, 179, 1)
+            Default: =ThisItem.IsChoosen
+            Height: =39
+            OnCheck: |-
+                =Patch(colCopackerUser,ThisItem,{IsChoosen:true})
+            OnSelect: =Select(Parent)
+            OnUncheck: |+
+                =Patch(colCopackerUser,ThisItem,{IsChoosen:false});
+                Patch(colCopackerUser, LookUp(colCopackerUser, ID = ThisItem.ID),{EffectiveDate:LookUp('Copacker List',ID = ThisItem.ID).EffectiveDate, UnitConversionCoefficientAmt: LookUp('Copacker List',ID = ThisItem.ID).'Unit Conversion Coefficient Amt'});
+                Remove(colCopackerUserChangeLog,First( Filter(colCopackerUserChangeLog, ID=ThisItem.ID ) ) )
+                
+            Text: =""
+            Width: =40
+            ZIndex: =8
+
+    Button8_66 As button:
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(247, 247, 247, 1)
+        Height: =45
+        Text: =""
+        Width: =1269
+        X: =50
+        Y: =117
+        ZIndex: =8
+
+    Circle1_21 As circle:
+        Fill: =RGBA(0, 161, 233, 1)
+        Height: =30
+        Width: =30
+        X: =68
+        Y: =125
+        ZIndex: =9
+
+    Icon22_40 As icon.Post:
+        Color: =RGBA(255, 255, 255, 1)
+        DisplayMode: =DisplayMode.View
+        Height: =16
+        Icon: |-
+            =If(
+                
+                Label28_1.Text = "Fuel", Icon.ToolsWrench,
+                Label28_1.Text = "Conversion Unit", Icon.Sync,
+                Label28_1.Text = "Product", Icon.ListWatchlistRemind,
+                Label28_1.Text = "Copacker Products", Icon.Post
+            
+            )
+        Width: =26
+        X: =70
+        Y: =132
+        ZIndex: =10
+
+    Label28_1 As label:
+        AutoHeight: =true
+        Color: =RGBA(0, 161, 233, 1)
+        FontWeight: =Semibold
+        Height: =44
+        Text: ="Copacker Products"
+        Width: =928
+        X: =104
+        Y: =124
+        ZIndex: =11
+
+    Label31_5 As label:
+        Height: =33
+        Size: =11
+        Text: |+
+            ="Products Name"
+            
+            
+        Width: =208
+        X: =280
+        Y: =172
+        ZIndex: =12
+
+    Label31_6 As label:
+        Align: =Center
+        Height: =33
+        Size: =11
+        Text: |+
+            ="Item Code"
+            
+            
+        Width: =116
+        X: =634
+        Y: =172
+        ZIndex: =13
+
+    Label31_7 As label:
+        Align: =Center
+        Height: =33
+        Size: =11
+        Text: ="Copacker/BU"
+        Width: =200
+        X: =785
+        Y: =172
+        ZIndex: =14
+
+    Label31_8 As label:
+        Align: =Center
+        Height: =33
+        Size: =11
+        Text: |+
+            ="Unit Conversion Coefficient"
+            
+        Width: =200
+        X: =1085
+        Y: =172
+        ZIndex: =15
+
+    CPPUser_UpdateItem_bttn As button:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        BorderThickness: =0
+        DisplayMode: =If(CountRows(Filter(colCopackerUser, IsBlank(UnitConversionCoefficientAmt))) > 0,DisplayMode.View,Edit)
+        Fill: |+
+            =If(CountRows(Filter(colCopackerUser, IsBlank(UnitConversionCoefficientAmt))) > 0,DimGray,
+            RGBA(0, 161, 233, 1))
+            
+            
+        Height: =42
+        HoverBorderColor: =ColorFade(RGBA(128, 128, 128, 1), -4%)
+        HoverFill: =ColorFade(Self.Fill, -4%)
+        OnSelect: |
+            =Set(updatecpp,true);
+            
+            Set(popupsavecoefficientcppuser,true);
+        Size: =13
+        Text: ="Save"
+        Width: =200
+        X: =583
+        Y: =673
+        ZIndex: =16
+
+    Icon2 As icon.Notebook:
+        Color: =RGBA(153, 153, 153, 1)
+        Height: =25
+        Icon: =Icon.Notebook
+        OnSelect: =Set(changeloguser,true)
+        Tooltip: ="Change Log"
+        Width: =25
+        X: =1127
+        Y: =64
+        ZIndex: =17
+
+    Label2 As label:
+        Color: =RGBA(153, 153, 153, 1)
+        FontWeight: =Semibold
+        OnSelect: =Set(changeloguser,true)
+        Text: ="Change Log"
+        X: =1155
+        Y: =55
+        ZIndex: =18
+
+    Label31_9 As label:
+        Align: =Center
+        Height: =33
+        Size: =11
+        Text: ="Effective Date"
+        Width: =200
+        X: =68
+        Y: =172
+        ZIndex: =19
+
+    ComboBox1 As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["ProductName"]
+        InputTextPlaceholder: =""
+        Items: |-
+            =Filter(
+            Filter('Copacker List', Coefficient = "Copacker Products").'Product Name', !IsBlank('Product Name'))
+        OnSelect: |
+            =UpdateContext({ResetDropdownItem: true});
+            UpdateContext({ResetDropdownItem: false})
+        Reset: =ResetDropdownProductName
+        SearchFields: =["ProductName"]
+        SearchItems: |-
+            =Search(Filter(
+            Filter('Copacker List', Coefficient = "Copacker Products").'Product Name', !IsBlank('Product Name')),ComboBox1.SearchText,"ProductName")
+        Width: =352
+        X: =280
+        Y: =209
+        ZIndex: =20
+
+    ComboBox1_1 As combobox:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        ChevronBackground: =RGBA(0, 161, 233, 1)
+        DisplayFields: =["ItemCode"]
+        InputTextPlaceholder: =""
+        Items: |-
+            =Filter(
+            Filter('Copacker List', Coefficient = "Copacker Products").'Item Code',!IsBlank('Item Code'))
+        OnSelect: |-
+            =UpdateContext({ResetDropdownProductName: true}); 
+            UpdateContext({ResetDropdownProductName: false})
+        Reset: =ResetDropdownItem
+        SearchFields: =["ItemCode"]
+        SearchItems: |-
+            =Search(Filter(
+            Filter('Copacker List', Coefficient = "Copacker Products").'Item Code',!IsBlank('Item Code')),ComboBox1_1.SearchText,"ItemCode")
+        Width: =130
+        X: =655
+        Y: =209
+        ZIndex: =21
+
+    BG_34 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =36
+
+        Image3_41 As image:
+            Height: =768
+            Image: =asahi_people
+            ImagePosition: =ImagePosition.Fill
+            Width: =1366
+            ZIndex: =1
+
+        Rectangle1_68 As rectangle:
+            Fill: =RGBA(255, 255, 255, 0.97)
+            Height: =768
+            Width: =1365
+            X: =1
+            ZIndex: =2
+
+    popupsavecppuser As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =37
+
+        Rectangle5_60 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =768
+            Visible: =popupsavecoefficientcppuser
+            Width: =1366
+            ZIndex: =27
+
+        Submit_Bttn_updatecpp As button:
+            Align: =Center
+            BorderColor: =RGBA(0, 161, 233, 1)
+            BorderThickness: =0
+            Fill: =RGBA(128, 128, 128, 1)
+            Height: =44
+            HoverColor: =ColorFade(Self.Color, -4%)
+            HoverFill: =ColorFade(Self.Fill, -4%)
+            OnSelect: |-
+                =ForAll(RenameColumns(Filter(colCopackerUser,IsChoosen),"ID","EID"),
+                Patch('Copacker List', LookUp('Copacker List',ID = EID),
+                {'Unit Conversion Coefficient Amt':Value(TextInput6_19.Text), EffectiveDate: DatePicker4.SelectedDate}));
+                
+                
+                ForAll(colCopackerUserChangeLog As _item, 
+                Patch('Coefficients for G-KPI Calculation Change Log',
+                {Item: _item.Item, ChangeLogNew:_item.ChangeLogNew, EffectiveDateMonth: _item.EffectiveDate, Coefficient: _item.Coefficient}));
+                
+                Navigate(Successful)
+            PressedColor: =ColorFade(Self.Color, -4%)
+            PressedFill: =ColorFade(Self.Fill, -4%)
+            Size: =13
+            Text: ="Yes"
+            Visible: =updatecpp && popupsavecoefficientcppuser
+            Width: =209
+            X: =452
+            Y: =664
+            ZIndex: =28
+
+        Cancel_Bttn_39 As button:
+            Align: =Center
+            BorderColor: =RGBA(128, 128, 128, 1)
+            Color: =RGBA(128, 128, 128, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =44
+            HoverColor: =RGBA(128, 128, 128, 1)
+            HoverFill: =ColorFade(RGBA(255, 255, 255, 0), -4%)
+            OnSelect: =Set(popupsavecoefficientcppuser,false);
+            Size: =13
+            Text: ="No"
+            Visible: =popupsavecoefficientcppuser
+            Width: =209
+            X: =687
+            Y: =664
+            ZIndex: =29
+
+        Circle2_54 As circle:
+            Fill: =RGBA(0, 161, 233, 1)
+            Height: =65
+            Visible: =popupsavecoefficientcppuser
+            Width: =65
+            X: =651
+            Y: =264
+            ZIndex: =30
+
+        Image6_44 As image:
+            Height: =45
+            Image: ='signature-with-a-pen'
+            Visible: =popupsavecoefficientcppuser
+            Width: =45
+            X: =661
+            Y: =274
+            ZIndex: =31
+
+        Label3_56 As label:
+            Align: =Center
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =87
+            Size: =18
+            Text: ="Do you want to save the changes?"
+            Visible: =popupsavecoefficientcppuser
+            Width: =681
+            X: =343
+            Y: =362
+            ZIndex: =32
+
+    changeloguserpopup As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =37
+
+        ChangeLogPopUp_1 As button:
+            BorderColor: =RGBA(194, 194, 194, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =716
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnSelect: =true
+            Text: =""
+            Visible: =changeloguser
+            Width: =1366
+            Y: =52
+            ZIndex: =22
+
+        "'ChangeLog-Table_1' As dataTable.datatable":
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =1
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(255, 255, 255, 1)
+            HeadingFill: =RGBA(0, 161, 233, 1)
+            Height: =608
+            Items: =Sort('Coefficients for G-KPI Calculation Change Log',Created,Descending)
+            SelectedFill: =RGBA(230, 230, 230, 1)
+            Visible: =changeloguser
+            Width: =1208
+            X: =79
+            Y: =117
+            ZIndex: =23
+
+            Created_Column2_1 As dataTableColumn.dateTimeColumn:
+                AutoWidth: =false
+                DisplayMode: =DisplayMode.Edit
+                FieldDisplayName: ="Date"
+                FieldName: ="Created"
+                FieldVariantName: ="dateTimeColumn"
+                Height: =Parent.Height
+                LayoutHeight: =Parent.Height
+                Order: =1
+                Text: =Text(ThisItem.Created,"dd/mm/yyyy")
+                Width: =140
+                X: =0
+                Y: =0
+                ZIndex: =16
+
+            Item_Column2 As dataTableColumn.textualColumn:
+                AutoWidth: =false
+                DisplayMode: =DisplayMode.Edit
+                FieldDisplayName: ="Item"
+                FieldName: ="Item"
+                FieldVariantName: ="textualColumn"
+                Height: =Parent.Height
+                LayoutHeight: =Parent.Height
+                Order: =4
+                Text: =ThisItem.Item
+                Width: =313
+                X: =0
+                Y: =0
+                ZIndex: =18
+
+            ChangeLogNew_Column2 As dataTableColumn.textualColumn:
+                DisplayMode: =DisplayMode.Edit
+                FieldDisplayName: ="Change Log"
+                FieldName: ="ChangeLogNew"
+                FieldVariantName: ="textualColumn"
+                Height: =Parent.Height
+                LayoutHeight: =Parent.Height
+                Order: =5
+                Text: =ThisItem.ChangeLogNew
+                Width: =100
+                X: =0
+                Y: =0
+                ZIndex: =19
+
+            EffectiveDate_Column1 As dataTableColumn.textualColumn:
+                DisplayMode: =DisplayMode.Edit
+                FieldDisplayName: ="Effective Date"
+                FieldName: ="EffectiveDate"
+                FieldVariantName: ="textualColumn"
+                Height: =Parent.Height
+                LayoutHeight: =Parent.Height
+                Order: =6
+                Text: =ThisItem.EffectiveDateMonth
+                Width: =100
+                X: =0
+                Y: =0
+                ZIndex: =20
+
+            Coefficient_Column1 As dataTableColumn.textualColumn:
+                DisplayMode: =DisplayMode.Edit
+                FieldDisplayName: ="Coefficient"
+                FieldName: ="Coefficient"
+                FieldVariantName: ="textualColumn"
+                Height: =Parent.Height
+                LayoutHeight: =Parent.Height
+                Order: =3
+                Text: =ThisItem.Coefficient
+                Width: =100
+                X: =0
+                Y: =0
+                ZIndex: =21
+
+        SubHeader_26 As SubHeader:
+            Height: =43
+            Visible: =changeloguser
+            Y: =52
+            ZIndex: =24
+
+        "'Close-bttn-etika_18' As icon.CancelBadge":
+            Color: =RGBA(0, 161, 233, 1)
+            Height: =20
+            Icon: =Icon.CancelBadge
+            OnSelect: =Set(changeloguser,false)
+            Visible: =changeloguser
+            Width: =20
+            X: =1324
+            Y: =64
+            ZIndex: =25
+
+        Label39 As label:
+            Align: =Center
+            Color: =RGBA(128, 128, 128, 1)
+            FontWeight: =Semibold
+            Height: =41
+            Size: =14
+            Text: ="Change log"
+            Visible: =changeloguser
+            Width: =660
+            X: =353
+            Y: =54
+            ZIndex: =26
+
