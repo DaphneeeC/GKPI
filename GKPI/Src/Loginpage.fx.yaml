@@ -264,3 +264,9 @@ Loginpage As screen:
         Y: =40
         ZIndex: =22
 
+    Label49 As label:
+        Text: ="Test Test"
+        X: =148
+        Y: =201
+        ZIndex: =23
+
